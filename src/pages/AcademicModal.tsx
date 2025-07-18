@@ -276,7 +276,10 @@ const AcademicPage: React.FC = () => {
             >
               Apply Now
             </Link>
-            <button className="border-2 border-white text-white font-bold py-3 px-8 rounded-lg hover:bg-white hover:text-orange-600 transition-colors">
+            <button 
+              onClick={() => window.print()}
+              className="border-2 border-white text-white font-bold py-3 px-8 rounded-lg hover:bg-white hover:text-orange-600 transition-colors"
+            >
               Download Brochure
             </button>
           </div>

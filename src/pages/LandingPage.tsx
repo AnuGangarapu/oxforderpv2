@@ -917,14 +917,14 @@ function App(): JSX.Element {
             </div>
 
             <div>
-              <div className="bg-white rounded-2xl shadow-lg overflow-hidden h-full">
-                <h3 className="text-2xl font-bold text-gray-900 px-8 pt-8">Visit Our Campus</h3>
-                <div className="mt-6">
+              <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+                <h3 className="text-2xl font-bold text-gray-900 px-8 pt-8 pb-4">Visit Our Campus</h3>
+                <div className="mt-4">
                   <iframe
                     title="Campus Location"
                     width="100%"
-                    height="360"
-                    style={{ border: 0 }}
+                    height="810"
+                    style={{ border: 0, display: 'block', margin: 0, padding: 0 }}
                     loading="lazy"
                     allowFullScreen
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d119052.3732031214!2d79.61010132858258!3d16.290234678257885!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a4b20a92c7b2eb3%3A0xfdb3c8d3932a820e!2sPalnadu%2C%20Andhra%20Pradesh!5e0!3m2!1sen!2sin!4v1628949581449!5m2!1sen!2sin"
@@ -969,7 +969,7 @@ function App(): JSX.Element {
               </li>
               <li>
                 <button 
-                  onClick={() => scrollToSection('programs')}
+                  onClick={() => scrollToSection('courses')}
                   className="hover:text-orange-600 transition-colors text-left"
                 >
                   Courses
@@ -1005,13 +1005,19 @@ function App(): JSX.Element {
                 </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-orange-600 transition-colors">Research</a>
+                <Link to="/research" className="hover:text-orange-600 transition-colors">
+                  Research
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-orange-600 transition-colors">Library</a>
+                <Link to="/library" className="hover:text-orange-600 transition-colors">
+                  Library
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-orange-600 transition-colors">E-Learning</a>
+                <Link to="/e-learning" className="hover:text-orange-600 transition-colors">
+                  E-Learning
+                </Link>
               </li>
             </ul>
           </div>
@@ -1031,7 +1037,7 @@ function App(): JSX.Element {
               </li>
               <li>
                 <button 
-                  onClick={() => scrollToSection('programs')}
+                  onClick={() => scrollToSection('courses')}
                   className="hover:text-orange-600 transition-colors text-left"
                 >
                   Career Services

@@ -20,11 +20,14 @@ import RealTimeAnalyticsPage from './pages/RealTimeAnalyticsPage';
 import AlumniPage from './pages/AlumniPage';
 import AcademicPage from './pages/AcademicModal';
 import AdmissionsPage from './pages/AdmissionsPage';
+import ResearchPage from './pages/Research';
+import LibraryPage from './pages/Library';
+import ELearningPage from './pages/ELearning';
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user } = useAuth();
   const { loading } = useAuth();
-  
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#1E3A8A]/5 via-white to-[#9333EA]/5">
@@ -35,7 +38,7 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
       </div>
     );
   }
-  
+
   return user ? (
     <>{children}</>
   ) : (
@@ -51,87 +54,80 @@ const AppRoutes: React.FC = () => {
       <Route path="/" element={user ? <Navigate to="/dashboard" /> : <LandingPage />} />
       <Route path="/login" element={user ? <Navigate to="/dashboard" /> : <LoginPage />} />
       <Route path="/alumni" element={<AlumniPage />} />
-      <Route path="/admissions" element={<AdmissionsPage/>} />
+      <Route path="/admissions" element={<AdmissionsPage />} />
       <Route path="/academics" element={<AcademicPage />} />
-      
+
+      {/* 🆕 Newly added public ERP routes */}
+      <Route path="/research" element={<ResearchPage />} />
+      <Route path="/library" element={<LibraryPage />} />
+      <Route path="/e-learning" element={<ELearningPage />} />
+
+      {/* Protected Routes */}
       <Route path="/dashboard" element={
         <ProtectedRoute>
           <Dashboard />
         </ProtectedRoute>
       } />
-      
       <Route path="/profile" element={
         <ProtectedRoute>
           <ProfilePage />
         </ProtectedRoute>
       } />
-      
       <Route path="/students" element={
         <ProtectedRoute>
           <StudentManagement />
         </ProtectedRoute>
       } />
-      
       <Route path="/faculty" element={
         <ProtectedRoute>
           <FacultyManagement />
         </ProtectedRoute>
       } />
-      
       <Route path="/attendance" element={
         <ProtectedRoute>
           <AttendanceManagement />
         </ProtectedRoute>
       } />
-      
       <Route path="/marks" element={
         <ProtectedRoute>
           <MarksManagement />
         </ProtectedRoute>
       } />
-      
       <Route path="/fees" element={
         <ProtectedRoute>
           <FeeManagement />
         </ProtectedRoute>
       } />
-      
       <Route path="/notifications" element={
         <ProtectedRoute>
           <NotificationsPage />
         </ProtectedRoute>
       } />
-      
       <Route path="/documents" element={
         <ProtectedRoute>
           <DocumentsPage />
         </ProtectedRoute>
       } />
-      
       <Route path="/analytics" element={
         <ProtectedRoute>
           <AnalyticsPage />
         </ProtectedRoute>
       } />
-
       <Route path="/real-time-analytics" element={
         <ProtectedRoute>
           <RealTimeAnalyticsPage />
         </ProtectedRoute>
       } />
-
       <Route path="/timetable" element={
         <ProtectedRoute>
           <TimetablePage />
         </ProtectedRoute>
       } />
-
       <Route path="/settings" element={
         <ProtectedRoute>
           <SettingsPage />
         </ProtectedRoute>
       } />
-
       <Route path="/whatsapp" element={
         <ProtectedRoute>
           <NotificationCenter />

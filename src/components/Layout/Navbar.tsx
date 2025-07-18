@@ -104,11 +104,11 @@ const Navbar: React.FC = () => {
       <div className="container-custom">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center space-x-3">
-            <div className="bg-gradient-to-br from-[#1E3A8A] to-[#9333EA] p-2 rounded-xl">
+            <div className="bg-gradient-to-br from-[#9A3412] to-[#EA580C] p-2 rounded-xl">
               <GraduationCap className="w-6 h-6 text-white" />
             </div>
             <div className="hidden sm:block">
-              <h1 className="text-xl font-bold bg-gradient-to-r from-[#1E3A8A] to-[#9333EA] bg-clip-text text-transparent">
+              <h1 className="text-xl font-bold bg-gradient-to-r from-[#9A3412] to-[#EA580C] bg-clip-text text-transparent">
                 Oxford College
               </h1>
               <p className="text-xs text-slate-400">Student Management</p>
@@ -125,7 +125,7 @@ const Navbar: React.FC = () => {
                     placeholder="Search students..."
                     value={searchTerm}
                     onChange={(e) => handleSearch(e.target.value)}
-                    className="pl-10 pr-4 py-2 w-64 bg-slate-700 border border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-slate-400"
+                    className="pl-10 pr-4 py-2 w-64 bg-slate-700 border border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent text-white placeholder-slate-400"
                   />
                 </div>
                 {showSearchResults && searchResults.length > 0 && (
@@ -139,7 +139,7 @@ const Navbar: React.FC = () => {
                         >
                           <div className="flex items-center space-x-3">
                             <img
-                              src={student.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(student.name)}&background=6366f1&color=fff`}
+                              src={student.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(student.name)}&background=9A3412&color=fff`}
                               alt={student.name}
                               className="w-10 h-10 rounded-full object-cover"
                             />
@@ -151,7 +151,7 @@ const Navbar: React.FC = () => {
                               <div className="flex items-center justify-between mt-1">
                                 <p className="text-sm text-slate-400">{student.year} • {student.department}</p>
                                 <div className="flex items-center space-x-2">
-                                  <span className="text-xs bg-blue-900 text-blue-200 px-2 py-1 rounded">
+                                  <span className="text-xs bg-orange-900 text-orange-200 px-2 py-1 rounded">
                                     CGPA: {student.cgpa}
                                   </span>
                                   <span className="text-xs bg-green-900 text-green-200 px-2 py-1 rounded">
@@ -184,7 +184,7 @@ const Navbar: React.FC = () => {
                 className="flex items-center space-x-3 p-2 text-slate-400 hover:text-white hover:bg-slate-700/50 rounded-lg transition-colors"
               >
                 <img
-                  src={user?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name || 'User')}&background=6366f1&color=fff`}
+                  src={user?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name || 'User')}&background=9A3412&color=fff`}
                   alt={user?.name}
                   className="w-8 h-8 rounded-full object-cover"
                 />
@@ -222,17 +222,16 @@ const Navbar: React.FC = () => {
                       <span>Settings</span>
                     </button>
                     <hr className="my-1 border-slate-700" />
-                  <button
-                   onClick={() => {
-                     logout();
-                    navigate('/');
-                    }}
-                     className="flex items-center space-x-3 w-full px-4 py-2 text-sm text-red-400 hover:bg-slate-700/50"
+                    <button
+                      onClick={() => {
+                        logout();
+                        navigate('/');
+                      }}
+                      className="flex items-center space-x-3 w-full px-4 py-2 text-sm text-red-400 hover:bg-slate-700/50"
                     >
-                    <LogOut className="w-4 h-4" />
-                    <span>Sign out</span>
+                      <LogOut className="w-4 h-4" />
+                      <span>Sign out</span>
                     </button>
-
                   </motion.div>
                 )}
               </AnimatePresence>

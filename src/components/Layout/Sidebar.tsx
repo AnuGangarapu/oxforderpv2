@@ -94,7 +94,7 @@ const Sidebar: React.FC = () => {
         {/* Header */}
         <div className={`px-4 py-5 ${isExpanded ? "" : "flex justify-center"}`}>
           <div className={`flex items-center ${isExpanded ? "gap-3" : "justify-center"} mb-2`}>
-            <div className="bg-gradient-to-r from-[#1E3A8A] to-[#9333EA] p-2 rounded-lg shadow-md">
+            <div className="bg-gradient-to-r from-[#9A3412] to-[#EA580C] p-2 rounded-lg shadow-md">
               <Menu className="w-5 h-5 text-white" />
             </div>
             <span className={`font-medium text-white ${isExpanded ? "" : "hidden"}`}>Menu</span>
@@ -114,7 +114,7 @@ const Sidebar: React.FC = () => {
                   key={item.id}
                   onClick={() => navigate(item.path)}
                   className={`w-full text-left transition-all duration-200 group flex items-center px-3 py-2.5 rounded-lg ${
-                    isActive ? 'bg-gradient-to-r from-[#1E3A8A] to-[#9333EA] text-white' : 'text-slate-300 hover:bg-slate-700/50 hover:text-white'
+                    isActive ? 'bg-gradient-to-r from-[#9A3412] to-[#EA580C] text-white' : 'text-slate-300 hover:bg-slate-700/50 hover:text-white'
                   } ${isExpanded ? "justify-start" : "justify-center"} overflow-hidden`}
                 >
                   <Icon className={`w-5 h-5 min-w-5 transition-all duration-200 ${
@@ -132,7 +132,7 @@ const Sidebar: React.FC = () => {
                   {/* New Feature Indicator */}
                   {item.isNew && (
                     <div className={`ml-auto ${isExpanded ? "" : "absolute -top-1 -right-1"}`}>
-                      <span className="px-1.5 py-0.5 text-xs bg-[#9333EA] text-white rounded-full text-center">
+                      <span className="px-1.5 py-0.5 text-xs bg-[#EA580C] text-white rounded-full text-center">
                         {isExpanded ? "New" : ""}
                       </span>
                     </div>
@@ -140,7 +140,7 @@ const Sidebar: React.FC = () => {
                   
                   {/* WhatsApp Indicator */}
                   {item.id === 'whatsapp' && (
-                    <div className={`ml-auto w-2 h-2 bg-[#9333EA] rounded-full ${isExpanded ? "" : "absolute -top-1 -right-1"}`}></div>
+                    <div className={`ml-auto w-2 h-2 bg-[#EA580C] rounded-full ${isExpanded ? "" : "absolute -top-1 -right-1"}`}></div>
                   )}
                 </button>
               );
@@ -151,7 +151,7 @@ const Sidebar: React.FC = () => {
         {/* Bottom Card - Adjusted with proper spacing */}
         <div className={`p-3 bg-slate-700/50 backdrop-blur-sm rounded-lg border border-slate-600/30 mx-3 mb-4 mt-auto ${isExpanded ? "" : "hidden"}`}>
           <div className="flex items-center gap-2 mb-2">
-            <div className="w-8 h-8 bg-gradient-to-r from-[#1E3A8A] to-[#9333EA] rounded-lg flex items-center justify-center shadow-md">
+            <div className="w-8 h-8 bg-gradient-to-r from-[#9A3412] to-[#EA580C] rounded-lg flex items-center justify-center shadow-md">
               <GraduationCap className="w-4 h-4 text-white" />
             </div>
             <div>
@@ -164,7 +164,7 @@ const Sidebar: React.FC = () => {
           </p>
           
           <div className="mt-2 w-full bg-slate-600/50 rounded-full h-1">
-            <div className="bg-gradient-to-r from-[#1E3A8A] to-[#9333EA] h-1 rounded-full w-3/4"></div>
+            <div className="bg-gradient-to-r from-[#9A3412] to-[#EA580C] h-1 rounded-full w-3/4"></div>
           </div>
           <p className="text-xs text-slate-400 mt-1">Status: Online</p>
         </div>

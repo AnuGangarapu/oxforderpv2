@@ -142,7 +142,7 @@ const ProfilePage: React.FC = () => {
                 <>
                   <button
                     onClick={handleSave}
-                    className="flex items-center space-x-2 px-4 py-2 bg-[#9333EA] text-white rounded-lg hover:bg-[#7e22ce] transition-colors duration-200"
+                    className="flex items-center space-x-2 px-4 py-2 bg-[#EA580C] text-white rounded-lg hover:bg-[#C2410C] transition-colors duration-200"
                   >
                     <Save className="w-4 h-4" />
                     <span>Save</span>
@@ -158,7 +158,7 @@ const ProfilePage: React.FC = () => {
               ) : (
                 <button
                   onClick={() => setIsEditing(true)}
-                  className="flex items-center space-x-2 px-4 py-2 bg-[#9333EA] text-white rounded-lg hover:bg-[#7e22ce] transition-colors duration-200"
+                  className="flex items-center space-x-2 px-4 py-2 bg-[#EA580C] text-white rounded-lg hover:bg-[#C2410C] transition-colors duration-200"
                 >
                   <Edit3 className="w-4 h-4" />
                   <span>Edit Profile</span>
@@ -172,7 +172,7 @@ const ProfilePage: React.FC = () => {
           {/* Profile Card */}
           <div className="lg:col-span-1">
             <div className="bg-gray-100/90 backdrop-blur-sm rounded-xl shadow-sm border border-gray-200/50 overflow-hidden">
-              <div className="bg-gradient-to-r from-[#9333EA] to-[#6B21A8] p-6">
+              <div className="bg-gradient-to-r from-[#EA580C] to-[#9A3412] p-6">
                 <div className="text-center">
                   <div className="relative inline-block">
                     <img
@@ -187,8 +187,8 @@ const ProfilePage: React.FC = () => {
                     )}
                   </div>
                   <h3 className="text-xl font-bold text-white mt-4">{user?.name}</h3>
-                  <p className="text-purple-100 capitalize">{user?.role}</p>
-                  <p className="text-purple-200">{user?.department}</p>
+                  <p className="text-orange-100 capitalize">{user?.role}</p>
+                  <p className="text-orange-200">{user?.department}</p>
                 </div>
               </div>
 
@@ -249,7 +249,7 @@ const ProfilePage: React.FC = () => {
                       type="text"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full px-4 py-2 border border-gray-300/70 rounded-lg focus:ring-2 focus:ring-[#9333EA] focus:border-transparent bg-gray-50/70"
+                      className="w-full px-4 py-2 border border-gray-300/70 rounded-lg focus:ring-2 focus:ring-[#EA580C] focus:border-transparent bg-gray-50/70"
                     />
                   ) : (
                     <p className="text-gray-800 bg-gray-50/70 px-4 py-2 rounded-lg">{user?.name}</p>
@@ -266,7 +266,7 @@ const ProfilePage: React.FC = () => {
                       type="email"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-4 py-2 border border-gray-300/70 rounded-lg focus:ring-2 focus:ring-[#9333EA] focus:border-transparent bg-gray-50/70"
+                      className="w-full px-4 py-2 border border-gray-300/70 rounded-lg focus:ring-2 focus:ring-[#EA580C] focus:border-transparent bg-gray-50/70"
                     />
                   ) : (
                     <p className="text-gray-800 bg-gray-50/70 px-4 py-2 rounded-lg">{user?.email}</p>
@@ -283,7 +283,7 @@ const ProfilePage: React.FC = () => {
                       type="tel"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full px-4 py-2 border border-gray-300/70 rounded-lg focus:ring-2 focus:ring-[#9333EA] focus:border-transparent bg-gray-50/70"
+                      className="w-full px-4 py-2 border border-gray-300/70 rounded-lg focus:ring-2 focus:ring-[#EA580C] focus:border-transparent bg-gray-50/70"
                     />
                   ) : (
                     <p className="text-gray-800 bg-gray-50/70 px-4 py-2 rounded-lg">{user?.phone || 'Not provided'}</p>
@@ -311,7 +311,7 @@ const ProfilePage: React.FC = () => {
                     value={formData.address}
                     onChange={(e) => setFormData({ ...formData, address: e.target.value })}
                     rows={3}
-                    className="w-full px-4 py-2 border border-gray-300/70 rounded-lg focus:ring-2 focus:ring-[#9333EA] focus:border-transparent bg-gray-50/70"
+                    className="w-full px-4 py-2 border border-gray-300/70 rounded-lg focus:ring-2 focus:ring-[#EA580C] focus:border-transparent bg-gray-50/70"
                     placeholder="Enter your address..."
                   />
                 </div>
@@ -379,7 +379,7 @@ const ProfilePage: React.FC = () => {
               
               <div className="flex flex-wrap gap-2">
                 {(additionalInfo.subjects || additionalInfo.publications || []).map((item: string, index: number) => (
-                  <span key={index} className="px-3 py-1 bg-[#9333EA]/10 text-[#9333EA] rounded-full text-sm">
+                  <span key={index} className="px-3 py-1 bg-[#EA580C]/10 text-[#EA580C] rounded-full text-sm">
                     {item}
                   </span>
                 ))}

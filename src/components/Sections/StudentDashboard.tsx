@@ -50,15 +50,15 @@ const ProfileHeader = ({ darkMode, toggleDarkMode }) => {
   }, []);
 
   return (
-    <div className={`mb-6 p-6 rounded-xl shadow-md ${darkMode ? 'bg-slate-800 text-white' : 'bg-slate-700 text-white'}`}>
+    <div className={`mb-6 p-6 rounded-xl shadow-md ${darkMode ? 'bg-slate-800 text-white' : 'bg-orange-600 text-white'}`}>
       <div className="flex justify-between items-start">
         <div>
           <h1 className="text-2xl font-bold mb-1">EduManage Pro</h1>
-          <p className={`text-sm ${darkMode ? 'text-slate-300' : 'text-slate-200'}`}>Student Management System</p>
+          <p className={`text-sm ${darkMode ? 'text-slate-300' : 'text-orange-200'}`}>Student Management System</p>
         </div>
         <button 
           onClick={toggleDarkMode}
-          className={`p-2 rounded-full ${darkMode ? 'bg-slate-700 text-amber-300' : 'bg-slate-600 text-white'}`}
+          className={`p-2 rounded-full ${darkMode ? 'bg-slate-700 text-amber-300' : 'bg-orange-700 text-white'}`}
         >
           {darkMode ? <Sun size={20} /> : <Moon size={20} />}
         </button>
@@ -66,13 +66,13 @@ const ProfileHeader = ({ darkMode, toggleDarkMode }) => {
 
       <div className="flex items-center justify-between mt-6">
         <div className="flex items-center gap-4">
-          <div className={`w-16 h-16 rounded-full flex items-center justify-center border-2 ${darkMode ? 'border-slate-600' : 'border-slate-300'}`}>
+          <div className={`w-16 h-16 rounded-full flex items-center justify-center border-2 ${darkMode ? 'border-slate-600' : 'border-orange-300'}`}>
             <User className="w-8 h-8 text-white" />
           </div>
           <div>
             <h2 className="text-xl font-bold">John Smith</h2>
-            <div className={`flex items-center gap-3 text-sm ${darkMode ? 'text-slate-300' : 'text-slate-200'}`}>
-              <span className={`px-2 py-1 rounded-full ${darkMode ? 'bg-slate-700' : 'bg-slate-600'}`}>ID: CS21001</span>
+            <div className={`flex items-center gap-3 text-sm ${darkMode ? 'text-slate-300' : 'text-orange-200'}`}>
+              <span className={`px-2 py-1 rounded-full ${darkMode ? 'bg-slate-700' : 'bg-orange-700'}`}>ID: CS21001</span>
               <span>•</span>
               <span>Computer Science Engineering</span>
               <span>•</span>
@@ -81,7 +81,7 @@ const ProfileHeader = ({ darkMode, toggleDarkMode }) => {
           </div>
         </div>
         <div className="text-right">
-          <div className={`text-sm ${darkMode ? 'text-slate-300' : 'text-slate-200'} mb-1`}>Current Time</div>
+          <div className={`text-sm ${darkMode ? 'text-slate-300' : 'text-orange-200'} mb-1`}>Current Time</div>
           <div className="text-xl font-medium">
             {currentTime.toLocaleTimeString()}
           </div>
@@ -111,13 +111,13 @@ const QuickStats = ({ darkMode }) => {
             {index < 2 ? (
               <div className={`w-full rounded-full h-2 ${darkMode ? 'bg-slate-700' : 'bg-slate-100'}`}>
                 <div 
-                  className="h-2 rounded-full bg-indigo-500"
+                  className="h-2 rounded-full bg-orange-500"
                   style={{ width: index === 0 ? '92%' : '96%' }}
                 />
               </div>
             ) : (
               <div className="flex justify-center">
-                <stat.icon className={`w-5 h-5 ${darkMode ? 'text-indigo-400' : 'text-indigo-600'}`} />
+                <stat.icon className={`w-5 h-5 ${darkMode ? 'text-orange-400' : 'text-orange-600'}`} />
               </div>
             )}
           </div>
@@ -143,7 +143,7 @@ const AttendanceChart = ({ darkMode }) => {
         <h3 className={`text-lg font-semibold ${darkMode ? 'text-white' : 'text-slate-800'}`}>
           Attendance Overview
         </h3>
-        <button className={`flex items-center text-sm transition-colors ${darkMode ? 'text-indigo-400 hover:text-indigo-300' : 'text-indigo-600 hover:text-indigo-700'}`}>
+        <button className={`flex items-center text-sm transition-colors ${darkMode ? 'text-orange-400 hover:text-orange-300' : 'text-orange-600 hover:text-orange-700'}`}>
           View Details <ChevronRight className="w-4 h-4 ml-1" />
         </button>
       </div>
@@ -153,8 +153,8 @@ const AttendanceChart = ({ darkMode }) => {
           <AreaChart data={attendanceData}>
             <defs>
               <linearGradient id="attendanceGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#6366f1" stopOpacity={0.4}/>
-                <stop offset="95%" stopColor="#6366f1" stopOpacity={0.1}/>
+                <stop offset="5%" stopColor="#EA580C" stopOpacity={0.4}/>
+                <stop offset="95%" stopColor="#EA580C" stopOpacity={0.1}/>
               </linearGradient>
             </defs>
             <CartesianGrid strokeDasharray="3 3" stroke={darkMode ? '#334155' : '#e2e8f0'} />
@@ -181,7 +181,7 @@ const AttendanceChart = ({ darkMode }) => {
             <Area
               type="monotone"
               dataKey="percentage"
-              stroke="#6366f1"
+              stroke="#EA580C"
               strokeWidth={2}
               fill="url(#attendanceGradient)"
             />
@@ -211,7 +211,7 @@ const AcademicProgress = ({ darkMode }) => {
           <div className={`text-sm ${darkMode ? 'text-slate-300' : 'text-slate-500'}`}>
             Current GPA
           </div>
-          <div className={`text-xl font-bold ${darkMode ? 'text-indigo-400' : 'text-indigo-600'}`}>
+          <div className={`text-xl font-bold ${darkMode ? 'text-orange-400' : 'text-orange-600'}`}>
             3.85
           </div>
         </div>
@@ -231,7 +231,7 @@ const AcademicProgress = ({ darkMode }) => {
                 <span className={`text-sm ${darkMode ? 'text-slate-300' : 'text-slate-500'}`}>
                   {subject.credits} Credits
                 </span>
-                <span className={`px-2 py-1 rounded-md text-xs font-medium ${darkMode ? 'bg-indigo-900/30 text-indigo-300' : 'bg-indigo-50 text-indigo-700'}`}>
+                <span className={`px-2 py-1 rounded-md text-xs font-medium ${darkMode ? 'bg-orange-900/30 text-orange-300' : 'bg-orange-50 text-orange-700'}`}>
                   {subject.grade}
                 </span>
               </div>
@@ -239,7 +239,7 @@ const AcademicProgress = ({ darkMode }) => {
             <div className="flex items-center gap-3">
               <div className={`flex-1 rounded-full h-2 ${darkMode ? 'bg-slate-600' : 'bg-slate-100'}`}>
                 <div 
-                  className="h-2 rounded-full bg-indigo-500"
+                  className="h-2 rounded-full bg-orange-500"
                   style={{ width: `${subject.percentage}%` }}
                 />
               </div>
@@ -294,7 +294,7 @@ const RecentActivities = ({ darkMode }) => {
         <h3 className={`text-lg font-semibold ${darkMode ? 'text-white' : 'text-slate-800'}`}>
           Recent Activities
         </h3>
-        <button className={`flex items-center text-sm transition-colors ${darkMode ? 'text-indigo-400 hover:text-indigo-300' : 'text-indigo-600 hover:text-indigo-700'}`}>
+        <button className={`flex items-center text-sm transition-colors ${darkMode ? 'text-orange-400 hover:text-orange-300' : 'text-orange-600 hover:text-orange-700'}`}>
           View All <ChevronRight className="w-4 h-4 ml-1" />
         </button>
       </div>
@@ -305,8 +305,8 @@ const RecentActivities = ({ darkMode }) => {
             key={index} 
             className={`flex items-start gap-3 p-3 rounded-lg border ${darkMode ? 'bg-slate-700/50 border-slate-600 hover:bg-slate-700' : 'bg-slate-50 border-slate-200 hover:bg-slate-100'} transition-colors`}
           >
-            <div className={`flex-shrink-0 p-2 rounded-lg ${darkMode ? 'bg-slate-600' : 'bg-indigo-50'}`}>
-              <activity.icon className={`w-5 h-5 ${darkMode ? 'text-indigo-400' : 'text-indigo-600'}`} />
+            <div className={`flex-shrink-0 p-2 rounded-lg ${darkMode ? 'bg-slate-600' : 'bg-orange-50'}`}>
+              <activity.icon className={`w-5 h-5 ${darkMode ? 'text-orange-400' : 'text-orange-600'}`} />
             </div>
             <div className="flex-1 min-w-0">
               <p className={`font-medium text-sm ${darkMode ? 'text-white' : 'text-slate-800'}`}>
@@ -319,7 +319,7 @@ const RecentActivities = ({ darkMode }) => {
                 {activity.time}
               </p>
             </div>
-            <div className={`w-2 h-2 rounded-full mt-2 flex-shrink-0 ${darkMode ? 'bg-indigo-400' : 'bg-indigo-600'}`} />
+            <div className={`w-2 h-2 rounded-full mt-2 flex-shrink-0 ${darkMode ? 'bg-orange-400' : 'bg-orange-600'}`} />
           </div>
         ))}
       </div>
@@ -353,7 +353,7 @@ const UpcomingSchedule = ({ darkMode }) => {
             className={`flex items-center gap-4 p-4 rounded-lg border ${darkMode ? 'bg-slate-700/50 border-slate-600 hover:bg-slate-700' : 'bg-slate-50 border-slate-200 hover:bg-slate-100'} transition-colors`}
           >
             <div className="flex-shrink-0 text-center">
-              <div className={`text-sm font-medium ${darkMode ? 'text-indigo-400' : 'text-indigo-600'}`}>
+              <div className={`text-sm font-medium ${darkMode ? 'text-orange-400' : 'text-orange-600'}`}>
                 {item.time}
               </div>
             </div>
@@ -362,7 +362,7 @@ const UpcomingSchedule = ({ darkMode }) => {
                 <h4 className={`font-medium ${darkMode ? 'text-white' : 'text-slate-800'}`}>
                   {item.subject}
                 </h4>
-                <span className={`px-2 py-1 rounded-full text-xs font-medium ${darkMode ? 'bg-slate-600 text-indigo-300' : 'bg-indigo-50 text-indigo-700'}`}>
+                <span className={`px-2 py-1 rounded-full text-xs font-medium ${darkMode ? 'bg-slate-600 text-orange-300' : 'bg-orange-50 text-orange-700'}`}>
                   {item.type}
                 </span>
               </div>
