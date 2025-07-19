@@ -1,468 +1,214 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { useAuth } from '../context/AuthContext';
-import Layout from '../components/Layout/Layout';
-import { 
-  Plus, 
-  Search, 
-  Filter, 
-  Edit, 
-  Trash2, 
-  Mail, 
-  Phone, 
+import {
+  Plus,
+  Search,
+  Filter,
+  Edit,
+  Trash2,
+  Mail,
+  Phone,
+  User,
   GraduationCap,
   Calendar,
-  Award,
-  Briefcase
+  MapPin,
+  Hash,
 } from 'lucide-react';
 
-// SVG Star for rating
-const Star = ({ filled }: { filled: boolean }) => (
-  <svg
-    className={`w-4 h-4 ${filled ? 'text-yellow-400' : 'text-gray-300'}`}
-    fill={filled ? 'currentColor' : 'none'}
-    stroke="currentColor"
-    viewBox="0 0 20 20"
-  >
-    <polygon
-      strokeWidth="1"
-      points="10 15 4 18 5.5 11.5 1 7.5 7 7 10 1 13 7 19 7.5 14.5 11.5 16 18"
-    />
-  </svg>
-);
-
-const FacultyManagement: React.FC = () => {
-  const { user } = useAuth();
+const FacultyManagement = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedDepartment, setSelectedDepartment] = useState('all');
   const [showAddModal, setShowAddModal] = useState(false);
-  const [newFaculty, setNewFaculty] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    department: '',
-    designation: '',
-    qualification: '',
-    experience: '',
-    jobId: ''
-  });
 
-  const canManageFaculty = ['principal', 'director'].includes(user?.role || '');
-
-  // Updated mock faculty with actual names and departments
-  const mockFaculty = [
+  const facultyList = [
     {
-      id: '11',
-      name: 'Ajay',
-      email: 'ajay@oxford.edu',
-      phone: '+91 9876543220',
+      id: 1,
+      name: 'Dr. Anjali Mehta',
       department: 'Computer Science',
-      designation: 'Assistant Professor',
-      qualification: 'M.Tech Computer Science',
-      experience: '5 years',
-      jobId: 'FAC001',
-      avatar: 'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
-      subjects: ['Data Structures', 'Algorithms', 'Programming'],
-      rating: 4.8
+      email: 'anjali.mehta@example.com',
+      phone: '+91 9876543210',
+      subjects: ['AI', 'ML'],
     },
     {
-      id: '12',
-      name: 'Bhanu',
-      email: 'bhanu@oxford.edu',
-      phone: '+91 9876543221',
-      department: 'Cybersecurity',
-      designation: 'Associate Professor',
-      qualification: 'Ph.D. Cybersecurity',
-      experience: '8 years',
-      jobId: 'FAC002',
-      avatar: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
-      subjects: ['Network Security', 'Ethical Hacking', 'Cryptography'],
-      rating: 4.9
+      id: 2,
+      name: 'Prof. Rajiv Sharma',
+      department: 'Mechanical',
+      email: 'rajiv.sharma@example.com',
+      phone: '+91 9123456780',
+      subjects: ['Thermodynamics', 'Mechanics'],
     },
     {
-      id: '13',
-      name: 'Chakresh',
-      email: 'chakresh@oxford.edu',
-      phone: '+91 9876543222',
-      department: 'AIML',
-      designation: 'Assistant Professor',
-      qualification: 'M.Tech AI & ML',
-      experience: '4 years',
-      jobId: 'FAC003',
-      avatar: 'https://images.pexels.com/photos/1181424/pexels-photo-1181424.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
-      subjects: ['Machine Learning', 'Deep Learning', 'Neural Networks'],
-      rating: 4.7
+      id: 3,
+      name: 'Dr. Kavita Rao',
+      department: 'Electrical',
+      email: 'kavita.rao@example.com',
+      phone: '+91 9988776655',
+      subjects: ['Circuits', 'Signals'],
     },
-    {
-      id: '14',
-      name: 'Harika',
-      email: 'harika@oxford.edu',
-      phone: '+91 9876543223',
-      department: 'Machine Learning',
-      designation: 'Assistant Professor',
-      qualification: 'Ph.D. Machine Learning',
-      experience: '6 years',
-      jobId: 'FAC004',
-      avatar: 'https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
-      subjects: ['ML Algorithms', 'Pattern Recognition', 'Computer Vision'],
-      rating: 4.8
-    },
-    {
-      id: '15',
-      name: 'Sony',
-      email: 'sony@oxford.edu',
-      phone: '+91 9876543224',
-      department: 'Data Science',
-      designation: 'Associate Professor',
-      qualification: 'Ph.D. Data Science',
-      experience: '7 years',
-      jobId: 'FAC005',
-      avatar: 'https://images.pexels.com/photos/1438081/pexels-photo-1438081.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
-      subjects: ['Data Analytics', 'Big Data', 'Statistical Methods'],
-      rating: 4.9
-    },
-    {
-      id: '16',
-      name: 'Bhanu Prasad',
-      email: 'bhanuprasad@oxford.edu',
-      phone: '+91 9876543225',
-      department: 'AIDS',
-      designation: 'Professor',
-      qualification: 'Ph.D. Artificial Intelligence',
-      experience: '10 years',
-      jobId: 'FAC006',
-      avatar: 'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
-      subjects: ['AI Systems', 'Intelligent Agents', 'Expert Systems'],
-      rating: 4.9
-    },
-    {
-      id: '17',
-      name: 'Adbuth Singh',
-      email: 'adbuth.singh@oxford.edu',
-      phone: '+91 9876543226',
-      department: 'Computer Science',
-      designation: 'HOD',
-      qualification: 'Ph.D. Computer Science',
-      experience: '15 years',
-      jobId: 'HOD001',
-      avatar: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
-      subjects: ['Advanced Algorithms', 'Research Methodology'],
-      rating: 4.9
-    }
   ];
 
-  const departments = ['Computer Science', 'Cybersecurity', 'AIML', 'Machine Learning', 'Data Science', 'AIDS'];
-
-  const filteredFaculty = mockFaculty.filter(faculty => {
-    const matchesSearch = faculty.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         faculty.jobId.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesDepartment = selectedDepartment === 'all' || faculty.department === selectedDepartment;
-    return matchesSearch && matchesDepartment;
+  const [formData, setFormData] = useState({
+    name: '',
+    department: '',
+    email: '',
+    phone: '',
+    subjects: '',
   });
 
   const handleAddFaculty = () => {
-    console.log('Adding faculty:', newFaculty);
+    console.log('Adding faculty:', formData);
     setShowAddModal(false);
-    setNewFaculty({
+    setFormData({
       name: '',
+      department: '',
       email: '',
       phone: '',
-      department: '',
-      designation: '',
-      qualification: '',
-      experience: '',
-      jobId: ''
+      subjects: '',
     });
   };
 
-  const showAdminBg = canManageFaculty || user?.role === 'hod';
-
-  if (!canManageFaculty && user?.role !== 'hod') {
-    return (
-      <Layout>
-        <div className="flex items-center justify-center h-64">
-          <div className="text-center">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Access Denied</h2>
-            <p className="text-gray-600">You don't have permission to manage faculty.</p>
-          </div>
-        </div>
-      </Layout>
-    );
-  }
-
   return (
-    <Layout>
-      {showAdminBg && (
-        <div
-          className="fixed inset-0 z-0"
-          style={{
-            backgroundImage: "url('https://plus.unsplash.com/premium_photo-1683880731591-4fbd49f9ffd5?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTd8fHByZXNlbnRhdGlvbnxlbnwwfHwwfHx8MA%3D%3D')",
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-          }}
+    <div className="p-4 md:p-6 bg-white min-h-screen">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 space-y-4 md:space-y-0">
+        <h2 className="text-2xl font-semibold text-orange-600">Faculty Management</h2>
+        <button
+          onClick={() => setShowAddModal(true)}
+          className="flex items-center space-x-2 px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition"
         >
-          <div className="absolute inset-0 bg-white/20 backdrop-blur-[1px]" />
-        </div>
-      )}
+          <Plus className="w-4 h-4" />
+          <span>Add Faculty</span>
+        </button>
+      </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="space-y-6 relative z-10"
-      >
-        <div className="flex justify-between items-center">
-          <div>
-            <h1 className="text-2xl font-bold text-gray-900">Faculty Management</h1>
-            <p className="text-gray-600">Manage faculty members and their information</p>
-          </div>
-          {canManageFaculty && (
-            <button
-              onClick={() => setShowAddModal(true)}
-              className="flex items-center space-x-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
-            >
-              <Plus className="w-4 h-4" />
-              <span>Add Faculty</span>
-            </button>
-          )}
+      {/* Search & Filter */}
+      <div className="flex flex-col md:flex-row md:items-center md:space-x-4 mb-6 space-y-4 md:space-y-0">
+        <div className="relative w-full md:w-1/2">
+          <Search className="absolute top-3 left-3 text-orange-500" />
+          <input
+            type="text"
+            placeholder="Search by name, department..."
+            className="w-full pl-10 pr-4 py-2 border border-orange-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
         </div>
+        <button className="flex items-center px-4 py-2 border border-orange-500 text-orange-500 rounded-lg hover:bg-orange-50 transition">
+          <Filter className="w-4 h-4 mr-2" />
+          Filter
+        </button>
+      </div>
 
-        {/* Filters */}
-        <div className="bg-white/80 rounded-xl shadow-sm border border-gray-200 p-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-              <input
-                type="text"
-                placeholder="Search faculty..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              />
-            </div>
-            <div className="relative">
-              <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-              <select
-                value={selectedDepartment}
-                onChange={(e) => setSelectedDepartment(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              >
-                <option value="all">All Departments</option>
-                {departments.map(dept => (
-                  <option key={dept} value={dept}>{dept}</option>
-                ))}
-              </select>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-600">
-                Showing {filteredFaculty.length} of {mockFaculty.length} faculty members
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* Faculty Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredFaculty.map((faculty, index) => (
-            <motion.div
-              key={faculty.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
-              className="bg-white/70 rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow"
-            >
-              <div className="flex items-center space-x-4 mb-4">
-                <img
-                  src={faculty.avatar}
-                  alt={faculty.name}
-                  className="w-12 h-12 rounded-full object-cover"
-                />
-                <div className="flex-1">
-                  <h3 className="font-semibold text-gray-900">{faculty.name}</h3>
-                  <div className="flex items-center space-x-1 text-sm text-gray-600">
-                    <Briefcase className="w-3 h-3" />
-                    <span>{faculty.jobId}</span>
-                  </div>
-                  <p className="text-sm text-gray-600">{faculty.designation}</p>
-                </div>
-                {canManageFaculty && (
-                  <div className="flex space-x-2">
-                    <button className="p-2 text-gray-400 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-colors">
-                      <Edit className="w-4 h-4" />
-                    </button>
-                    <button className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors">
-                      <Trash2 className="w-4 h-4" />
-                    </button>
-                  </div>
-                )}
+      {/* Faculty Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {facultyList
+          .filter((faculty) =>
+            faculty.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            faculty.department.toLowerCase().includes(searchTerm.toLowerCase())
+          )
+          .map((faculty) => (
+            <div key={faculty.id} className="bg-orange-50 border border-orange-200 rounded-lg p-4 shadow-sm">
+              <div className="flex items-center mb-3 space-x-3">
+                <User className="w-6 h-6 text-orange-500" />
+                <h3 className="text-lg font-semibold text-orange-700">{faculty.name}</h3>
               </div>
-
-              <div className="space-y-3">
-                <div className="flex items-center space-x-2 text-sm text-gray-600">
-                  <Mail className="w-4 h-4" />
-                  <span>{faculty.email}</span>
-                </div>
-                <div className="flex items-center space-x-2 text-sm text-gray-600">
-                  <Phone className="w-4 h-4" />
-                  <span>{faculty.phone}</span>
-                </div>
-                <div className="flex items-center space-x-2 text-sm text-gray-600">
+              <div className="space-y-2 text-sm text-orange-700">
+                <div className="flex items-center space-x-2">
                   <GraduationCap className="w-4 h-4" />
                   <span>{faculty.department}</span>
                 </div>
-                <div className="flex items-center space-x-2 text-sm text-gray-600">
-                  <Award className="w-4 h-4" />
-                  <span>{faculty.qualification}</span>
+                <div className="flex items-center space-x-2">
+                  <Mail className="w-4 h-4" />
+                  <span>{faculty.email}</span>
                 </div>
-                <div className="flex items-center space-x-2 text-sm text-gray-600">
-                  <Calendar className="w-4 h-4" />
-                  <span>{faculty.experience} experience</span>
+                <div className="flex items-center space-x-2">
+                  <Phone className="w-4 h-4" />
+                  <span>{faculty.phone}</span>
                 </div>
-              </div>
-
-              <div className="mt-4 pt-4 border-t border-gray-200">
-                <div className="mb-2">
-                  <span className="text-sm text-gray-600">Subjects:</span>
-                  <div className="flex flex-wrap gap-1 mt-1">
+                <div className="flex items-center space-x-2">
+                  <Hash className="w-4 h-4" />
+                  <span>Subjects:</span>
+                  <div className="flex flex-wrap gap-1">
                     {faculty.subjects.map((subject, idx) => (
-                      <span key={idx} className="px-2 py-1 bg-primary-100 text-primary-700 text-xs rounded-full">
+                      <span
+                        key={idx}
+                        className="px-2 py-1 bg-orange-100 text-orange-700 text-xs rounded-full"
+                      >
                         {subject}
                       </span>
                     ))}
                   </div>
                 </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600">Rating:</span>
-                  <div className="flex items-center space-x-1">
-                    <span className="text-sm font-medium text-gray-900">{faculty.rating}</span>
-                    <div className="flex">
-                      {[1,2,3,4,5].map(i => (
-                        <Star key={i} filled={faculty.rating >= i - 0.25} />
-                      ))}
-                    </div>
-                  </div>
-                </div>
               </div>
-            </motion.div>
+              <div className="mt-4 flex space-x-2">
+                <button className="px-3 py-1 bg-orange-500 text-white rounded-lg text-sm hover:bg-orange-600">
+                  <Edit className="w-4 h-4" />
+                </button>
+                <button className="px-3 py-1 bg-white border border-orange-500 text-orange-500 rounded-lg text-sm hover:bg-orange-50">
+                  <Trash2 className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
           ))}
-        </div>
+      </div>
 
-        {/* Add Faculty Modal */}
-        {showAddModal && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="bg-white/90 rounded-xl shadow-xl p-6 w-full max-w-md mx-4"
-            >
-              <h2 className="text-xl font-bold text-gray-900 mb-4">Add New Faculty</h2>
-              
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-                  <input
-                    type="text"
-                    value={newFaculty.name}
-                    onChange={(e) => setNewFaculty({ ...newFaculty, name: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                    placeholder="Enter faculty name"
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Job ID</label>
-                  <input
-                    type="text"
-                    value={newFaculty.jobId}
-                    onChange={(e) => setNewFaculty({ ...newFaculty, jobId: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                    placeholder="Enter job ID (e.g., FAC007)"
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                  <input
-                    type="email"
-                    value={newFaculty.email}
-                    onChange={(e) => setNewFaculty({ ...newFaculty, email: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                    placeholder="Enter email address"
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
-                  <input
-                    type="tel"
-                    value={newFaculty.phone}
-                    onChange={(e) => setNewFaculty({ ...newFaculty, phone: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                    placeholder="Enter phone number"
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Department</label>
-                  <select
-                    value={newFaculty.department}
-                    onChange={(e) => setNewFaculty({ ...newFaculty, department: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                  >
-                    <option value="">Select Department</option>
-                    {departments.map(dept => (
-                      <option key={dept} value={dept}>{dept}</option>
-                    ))}
-                  </select>
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Designation</label>
-                  <select
-                    value={newFaculty.designation}
-                    onChange={(e) => setNewFaculty({ ...newFaculty, designation: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                  >
-                    <option value="">Select Designation</option>
-                    <option value="Assistant Professor">Assistant Professor</option>
-                    <option value="Associate Professor">Associate Professor</option>
-                    <option value="Professor">Professor</option>
-                    <option value="HOD">HOD</option>
-                  </select>
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Qualification</label>
-                  <input
-                    type="text"
-                    value={newFaculty.qualification}
-                    onChange={(e) => setNewFaculty({ ...newFaculty, qualification: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                    placeholder="Enter qualification"
-                  />
-                </div>
-              </div>
-              
-              <div className="flex space-x-4 mt-6">
-                <button
-                  onClick={handleAddFaculty}
-                  className="flex-1 bg-primary-600 text-white py-2 px-4 rounded-lg hover:bg-primary-700 transition-colors"
-                >
-                  Add Faculty
-                </button>
-                <button
-                  onClick={() => setShowAddModal(false)}
-                  className="flex-1 bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600 transition-colors"
-                >
-                  Cancel
-                </button>
-              </div>
-            </motion.div>
+      {/* Add Faculty Modal */}
+      {showAddModal && (
+        <div className="fixed inset-0 bg-orange bg-opacity-30 backdrop-blur-sm flex justify-center items-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md mx-4">
+            <h3 className="text-xl font-semibold text-orange-600 mb-4">Add New Faculty</h3>
+            <div className="space-y-4">
+              <input
+                type="text"
+                placeholder="Full Name"
+                className="w-full px-4 py-2 border border-orange-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              />
+              <input
+                type="text"
+                placeholder="Department"
+                className="w-full px-4 py-2 border border-orange-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none"
+                value={formData.department}
+                onChange={(e) => setFormData({ ...formData, department: e.target.value })}
+              />
+              <input
+                type="email"
+                placeholder="Email"
+                className="w-full px-4 py-2 border border-orange-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              />
+              <input
+                type="tel"
+                placeholder="Phone Number"
+                className="w-full px-4 py-2 border border-orange-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none"
+                value={formData.phone}
+                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+              />
+              <input
+                type="text"
+                placeholder="Subjects (comma-separated)"
+                className="w-full px-4 py-2 border border-orange-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none"
+                value={formData.subjects}
+                onChange={(e) => setFormData({ ...formData, subjects: e.target.value })}
+              />
+            </div>
+            <div className="mt-6 flex justify-end space-x-3">
+              <button
+                onClick={() => setShowAddModal(false)}
+                className="px-4 py-2 bg-white border border-orange-500 text-orange-500 rounded-lg hover:bg-orange-50"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleAddFaculty}
+                className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600"
+              >
+                Add Faculty
+              </button>
+            </div>
           </div>
-        )}
-      </motion.div>
-    </Layout>
+        </div>
+      )}
+    </div>
   );
 };
 
