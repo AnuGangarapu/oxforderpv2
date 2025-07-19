@@ -244,6 +244,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { GraduationCap, Mail, Lock, User } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Eye, EyeOff } from 'lucide-react';
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -262,34 +263,27 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
- const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-  const gmailRegex = /^[\w.+-]+@gmail\.com$/;
+    if (!formData.email.trim() || !formData.identifier.trim() || !formData.password.trim()) {
+      setError('Please fill in all required fields.');
+      return;
+    }
 
-  if (!formData.email.trim() || !formData.identifier.trim() || !formData.password.trim()) {
-    setError('Please fill in all required fields.');
-    return;
-  }
+    setIsLoading(true);
+    setError('');
 
-  if (!gmailRegex.test(formData.email.trim())) {
-    setError('Only @gmail.com email addresses are allowed.');
-    return;
-  }
+    const success = login(formData.identifier, formData.password, formData.role);
 
-  setIsLoading(true);
-  setError('');
+    if (!success) {
+      setError('Invalid credentials. Use password123 for all demo accounts.');
+    } else {
+      onClose();
+    }
 
-  const success = login(formData.identifier, formData.password, formData.role);
-
-  if (!success) {
-    setError('Invalid credentials. Use password123 for all demo accounts.');
-  } else {
-    onClose();
-  }
-
-  setIsLoading(false);
-};
+    setIsLoading(false);
+  };
 
   const demoCredentials = [
     { role: 'student', identifier: 'CS2023001', name: 'Sridhar', dept: 'CS with AI' },
@@ -408,9 +402,18 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
       className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
       placeholder="Enter your password"
     />
-    
+    <button
+      type="button"
+      onClick={() => setShowPassword(!showPassword)}
+      className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-600 hover:text-gray-800 focus:outline-none"
+      tabIndex={-1}
+    >
+      {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+    </button>
   </div>
 </div>
+
+
 
 
                 {/* Error */}

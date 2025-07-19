@@ -244,6 +244,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { GraduationCap, Mail, Lock, User } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Eye, EyeOff } from 'lucide-react';
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -262,34 +263,27 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
- const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-  const gmailRegex = /^[\w.+-]+@gmail\.com$/;
+    if (!formData.email.trim() || !formData.identifier.trim() || !formData.password.trim()) {
+      setError('Please fill in all required fields.');
+      return;
+    }
 
-  if (!formData.email.trim() || !formData.identifier.trim() || !formData.password.trim()) {
-    setError('Please fill in all required fields.');
-    return;
-  }
+    setIsLoading(true);
+    setError('');
 
-  if (!gmailRegex.test(formData.email.trim())) {
-    setError('Only @gmail.com email addresses are allowed.');
-    return;
-  }
+    const success = login(formData.identifier, formData.password, formData.role);
 
-  setIsLoading(true);
-  setError('');
+    if (!success) {
+      setError('Invalid credentials. Use password123 for all demo accounts.');
+    } else {
+      onClose();
+    }
 
-  const success = login(formData.identifier, formData.password, formData.role);
-
-  if (!success) {
-    setError('Invalid credentials. Use password123 for all demo accounts.');
-  } else {
-    onClose();
-  }
-
-  setIsLoading(false);
-};
+    setIsLoading(false);
+  };
 
   const demoCredentials = [
     { role: 'student', identifier: 'CS2023001', name: 'Sridhar', dept: 'CS with AI' },
@@ -395,22 +389,9 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
 
                 {/* Password */}
                 {/* Password */}
-<div>
-  <label className="flex items-center space-x-2 text-sm font-medium text-gray-700 mb-1">
-    <Lock className="w-4 h-4" />
-    <span>Password</span>
-  </label>
-  <div className="relative">
-    <input
-      type={showPassword ? 'text' : 'password'}
-      value={formData.password}
-      onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-      className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-      placeholder="Enter your password"
-    />
-    
-  </div>
-</div>
+                <PasswordInput/>
+
+
 
 
                 {/* Error */}
@@ -450,5 +431,47 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
 };
 
 export default LoginModal;
+
+
+
+
+const PasswordInput = () => {
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePassword = () => setShowPassword(prev => !prev);
+
+  return (
+    <div className="flex flex-col">
+      <label htmlFor="password" className="mb-1 text-sm">Password</label>
+      <div className="relative">
+        <input
+          id="password"
+          type={showPassword ? 'text' : 'password'}
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          className="w-full pr-16 pl-3 py-2 border border-black rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        
+        {/* Left icon: only visible when there's password input */}
+        {password && (
+          <EyeOff
+            className="absolute right-10 top-1/2 -translate-y-1/2 text-gray-600 cursor-default"
+            size={20}
+          />
+        )}
+        
+        {/* Right icon: always visible, toggle visibility */}
+        <Eye
+          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-600 cursor-pointer"
+          size={20}
+          onClick={togglePassword}
+        />
+      </div>
+    </div>
+  );
+};
+
+
 
 

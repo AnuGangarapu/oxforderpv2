@@ -262,34 +262,27 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
- const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-  const gmailRegex = /^[\w.+-]+@gmail\.com$/;
+    if (!formData.email.trim() || !formData.identifier.trim() || !formData.password.trim()) {
+      setError('Please fill in all required fields.');
+      return;
+    }
 
-  if (!formData.email.trim() || !formData.identifier.trim() || !formData.password.trim()) {
-    setError('Please fill in all required fields.');
-    return;
-  }
+    setIsLoading(true);
+    setError('');
 
-  if (!gmailRegex.test(formData.email.trim())) {
-    setError('Only @gmail.com email addresses are allowed.');
-    return;
-  }
+    const success = login(formData.identifier, formData.password, formData.role);
 
-  setIsLoading(true);
-  setError('');
+    if (!success) {
+      setError('Invalid credentials. Use password123 for all demo accounts.');
+    } else {
+      onClose();
+    }
 
-  const success = login(formData.identifier, formData.password, formData.role);
-
-  if (!success) {
-    setError('Invalid credentials. Use password123 for all demo accounts.');
-  } else {
-    onClose();
-  }
-
-  setIsLoading(false);
-};
+    setIsLoading(false);
+  };
 
   const demoCredentials = [
     { role: 'student', identifier: 'CS2023001', name: 'Sridhar', dept: 'CS with AI' },

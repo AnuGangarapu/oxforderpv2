@@ -48,7 +48,7 @@ emailjs.init('K6TgTXs3Uql7altDg');
 
 // Course Modal Component
 const CourseModal: React.FC<{ isOpen: boolean; onClose: () => void; course: Course | null }> = ({ isOpen, onClose, course }) => {
-   if (!isOpen || !course) return null;
+  if (!isOpen || !course) return null;
 
   const getCourseDetails = (courseName: string) => {
     const courseDetails: { [key: string]: any } = {
@@ -109,92 +109,108 @@ const CourseModal: React.FC<{ isOpen: boolean; onClose: () => void; course: Cour
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl shadow-xl max-w-5xl w-full max-h-[90vh] overflow-y-auto">
-        {/* Header */}
-        <div className="sticky top-0 bg-white border-b border-gray-200 p-6 flex items-center justify-between z-10">
+      <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="sticky top-0 bg-white border-b border-gray-200 p-6 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <div className="bg-orange-100 rounded-full p-3 text-orange-600">
-              {course.icon}
+            <div className="bg-orange-100 rounded-full p-3">
+              <div className="text-orange-600">
+                {course.icon}
+              </div>
             </div>
             <div>
               <h2 className="text-2xl font-bold text-gray-900">{course.name}</h2>
-              <p className="text-gray-600 text-sm">{course.code} • {course.duration}</p>
+              <p className="text-gray-600">{course.code} • {course.duration}</p>
             </div>
           </div>
-          <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-full transition-colors">
+          <button
+            onClick={onClose}
+            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+          >
             <X className="w-6 h-6 text-gray-500" />
           </button>
         </div>
 
-        {/* Body */}
         <div className="p-6">
-          <div className="grid md:grid-cols-2 gap-10">
-            {/* Left Column */}
+          <div className="grid md:grid-cols-2 gap-8">
             <div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Program Overview</h3>
-              <p className="text-gray-700 mb-6 leading-relaxed">{details.description}</p>
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Program Overview</h3>
+              <p className="text-gray-600 mb-6 leading-relaxed">{details.description}</p>
 
-              {/* Highlights */}
-              <div className="bg-orange-50 rounded-xl p-5 mb-6">
-                <h4 className="text-lg font-semibold text-gray-900 mb-3 flex items-center gap-2">
+              <div className="bg-orange-50 rounded-xl p-6 mb-6">
+                <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
                   <Award className="w-5 h-5 text-orange-600" />
                   Program Highlights
                 </h4>
-                <ul className="space-y-2 text-gray-700 text-sm">
-                  <li className="flex items-center gap-2"><ChevronRight className="w-4 h-4 text-orange-600" /> Industry-aligned curriculum</li>
-                  <li className="flex items-center gap-2"><ChevronRight className="w-4 h-4 text-orange-600" /> Hands-on practical training</li>
-                  <li className="flex items-center gap-2"><ChevronRight className="w-4 h-4 text-orange-600" /> Expert faculty guidance</li>
-                  <li className="flex items-center gap-2"><ChevronRight className="w-4 h-4 text-orange-600" /> Modern lab facilities</li>
+                <ul className="space-y-2 text-gray-700">
+                  <li className="flex items-center gap-2">
+                    <ChevronRight className="w-4 h-4 text-orange-600" />
+                    Industry-aligned curriculum
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <ChevronRight className="w-4 h-4 text-orange-600" />
+                    Hands-on practical training
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <ChevronRight className="w-4 h-4 text-orange-600" />
+                    Expert faculty guidance
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <ChevronRight className="w-4 h-4 text-orange-600" />
+                    Modern lab facilities
+                  </li>
                 </ul>
               </div>
 
-              {/* Admission */}
-              <div className="bg-gray-50 rounded-xl p-5">
-                <h4 className="text-lg font-semibold text-gray-900 mb-3 flex items-center gap-2">
+              <div className="bg-gray-50 rounded-xl p-6">
+                <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
                   <BookOpen className="w-5 h-5 text-orange-600" />
                   Admission Requirements
                 </h4>
-                <p className="text-gray-700 text-sm mb-4">{details.eligibilityRequirements}</p>
-                <div className="flex flex-wrap items-center gap-6 text-sm text-gray-600">
-                  <div className="flex items-center gap-2"><Clock className="w-4 h-4" /> Duration: {course.duration}</div>
-                  <div className="flex items-center gap-2"><Users className="w-4 h-4" /> Fees: {details.fees}</div>
+                <p className="text-gray-700 mb-4">{details.eligibilityRequirements}</p>
+                <div className="flex items-center gap-4 text-sm text-gray-600">
+                  <div className="flex items-center gap-1">
+                    <Clock className="w-4 h-4" />
+                    <span>Duration: {course.duration}</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Users className="w-4 h-4" />
+                    <span>Fees: {details.fees}</span>
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* Right Column */}
             <div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Core Subjects</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Core Subjects</h3>
               <div className="grid grid-cols-2 gap-3 mb-6">
                 {details.subjects?.map((subject: string, index: number) => (
-                  <div key={index} className="bg-white border border-gray-200 rounded-lg p-2 text-sm text-gray-700">
+                  <div key={index} className="bg-white border border-gray-200 rounded-lg p-3 text-sm text-gray-700">
                     {subject}
                   </div>
                 ))}
               </div>
 
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Career Prospects</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Career Prospects</h3>
               <div className="grid grid-cols-2 gap-3 mb-6">
                 {details.careerProspects?.map((career: string, index: number) => (
-                  <div key={index} className="bg-orange-50 border border-orange-200 rounded-lg p-2 text-sm text-orange-700">
+                  <div key={index} className="bg-orange-50 border border-orange-200 rounded-lg p-3 text-sm text-orange-700">
                     {career}
                   </div>
                 ))}
               </div>
 
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Facilities</h3>
-              <ul className="space-y-2 text-sm text-gray-700">
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Facilities</h3>
+              <div className="space-y-2 mb-6">
                 {details.facilities?.map((facility: string, index: number) => (
-                  <li key={index} className="flex items-center gap-2">
+                  <div key={index} className="flex items-center gap-2 text-gray-700">
                     <ChevronRight className="w-4 h-4 text-orange-600" />
                     {facility}
-                  </li>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
           </div>
 
-          {/* Footer Actions */}
           <div className="flex flex-col sm:flex-row gap-4 mt-8 pt-6 border-t border-gray-200">
             <button className="flex-1 bg-orange-600 text-white py-3 px-6 rounded-lg hover:bg-orange-700 transition-colors font-semibold">
               Apply Now
@@ -787,7 +803,7 @@ function App(): JSX.Element {
                   onClick={() => handleCourseLearnMore(course)}
                   className="text-orange-600 font-semibold hover:text-orange-700 transition-colors flex items-center gap-2"
                 >
-                  Learn More<ChevronRight className="w-4 h-4" />
+                  Learn More Sony<ChevronRight className="w-4 h-4" />
                 </button>
               </div>
             ))}

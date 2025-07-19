@@ -239,24 +239,6 @@
   border-radius: 6px;
   border: 2px solid #fef3c7;
 }
-/* Scrollbar Track */
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-/* Scrollbar Thumb */
-::-webkit-scrollbar-thumb {
-  background-color: #f59e0b; /* same as bg-warning-600 */
-  border-radius: 9999px; /* fully rounded corners */
-  border: 2px solid transparent;
-  background-clip: content-box;
-}
-
-/* Scrollbar Track Styling */
-::-webkit-scrollbar-track {
-  background-color: #fefce8; /* match your light yellow background */
-  border-radius: 9999px;
-}
 
 
 /* Custom animations for specific elements */

@@ -252,7 +252,6 @@ interface LoginModalProps {
 
 const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
   const { login } = useAuth();
-  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     identifier: '',
@@ -262,34 +261,27 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
- const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-  const gmailRegex = /^[\w.+-]+@gmail\.com$/;
+    if (!formData.email.trim() || !formData.identifier.trim() || !formData.password.trim()) {
+      setError('Please fill in all required fields.');
+      return;
+    }
 
-  if (!formData.email.trim() || !formData.identifier.trim() || !formData.password.trim()) {
-    setError('Please fill in all required fields.');
-    return;
-  }
+    setIsLoading(true);
+    setError('');
 
-  if (!gmailRegex.test(formData.email.trim())) {
-    setError('Only @gmail.com email addresses are allowed.');
-    return;
-  }
+    const success = login(formData.identifier, formData.password, formData.role);
 
-  setIsLoading(true);
-  setError('');
+    if (!success) {
+      setError('Invalid credentials. Use password123 for all demo accounts.');
+    } else {
+      onClose();
+    }
 
-  const success = login(formData.identifier, formData.password, formData.role);
-
-  if (!success) {
-    setError('Invalid credentials. Use password123 for all demo accounts.');
-  } else {
-    onClose();
-  }
-
-  setIsLoading(false);
-};
+    setIsLoading(false);
+  };
 
   const demoCredentials = [
     { role: 'student', identifier: 'CS2023001', name: 'Sridhar', dept: 'CS with AI' },
@@ -408,7 +400,27 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
       className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
       placeholder="Enter your password"
     />
-    
+    <button
+      type="button"
+      className="absolute inset-y-0 right-0 px-3 text-gray-600 hover:text-gray-800 focus:outline-none"
+      tabIndex={-1}
+    >
+      {showPassword ? (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none"
+          viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+            d="M13.875 18.825A10.05 10.05 0 0112 19c-5.523 0-10-4.477-10-10 0-1.142.192-2.236.54-3.27m9.96 3.27A2.5 2.5 0 1012 14.5m0 0a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" />
+        </svg>
+      ) : (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none"
+          viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+        </svg>
+      )}
+    </button>
   </div>
 </div>
 
