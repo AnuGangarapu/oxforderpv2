@@ -11,7 +11,7 @@ interface MetricUpdateFormProps {
 
 const MetricUpdateForm: React.FC<MetricUpdateFormProps> = ({ onClose, onSubmit }) => {
   const { isConnected } = useRealTimeAnalytics();
-  
+
   const [formData, setFormData] = useState<Omit<AnalyticsUpdate, 'id' | 'timestamp'>>({
     userId: '',
     userName: '',
@@ -23,31 +23,31 @@ const MetricUpdateForm: React.FC<MetricUpdateFormProps> = ({ onClose, onSubmit }
     percentageChange: null,
     department: ''
   });
-  
+
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!isConnected) {
       alert('Cannot submit update: Real-time connection is not active');
       return;
     }
-    
+
     setIsSubmitting(true);
-    
+
     // Calculate percentage change if previous value is provided
     let updatedFormData = { ...formData };
     if (formData.previousValue !== null) {
       const percentageChange = ((formData.newValue - formData.previousValue) / formData.previousValue) * 100;
       updatedFormData.percentageChange = percentageChange;
     }
-    
+
     onSubmit(updatedFormData);
     setIsSubmitting(false);
     onClose();
   };
-  
+
   const getMetricOptions = () => {
     switch (formData.metricType) {
       case 'enrollment':
@@ -81,27 +81,25 @@ const MetricUpdateForm: React.FC<MetricUpdateFormProps> = ({ onClose, onSubmit }
         return [];
     }
   };
-  
-  const getDepartmentOptions = () => {
-    return [
-      { value: '', label: 'All Departments' },
-      { value: 'Computer Science', label: 'Computer Science' },
-      { value: 'AI & ML', label: 'AI & ML' },
-      { value: 'Data Science', label: 'Data Science' },
-      { value: 'Software Eng', label: 'Software Engineering' }
-    ];
-  };
-  
+
+  const getDepartmentOptions = () => [
+    { value: '', label: 'All Departments' },
+    { value: 'Computer Science', label: 'Computer Science' },
+    { value: 'AI & ML', label: 'AI & ML' },
+    { value: 'Data Science', label: 'Data Science' },
+    { value: 'Software Eng', label: 'Software Engineering' }
+  ];
+
   const getMetricTypeIcon = () => {
     switch (formData.metricType) {
       case 'enrollment':
-        return <Users className="w-5 h-5 text-blue-600" />;
+        return <Users className="w-5 h-5 text-orange-600" />;
       case 'attendance':
-        return <Calendar className="w-5 h-5 text-green-600" />;
+        return <Calendar className="w-5 h-5 text-orange-600" />;
       case 'fees':
-        return <BarChart2 className="w-5 h-5 text-yellow-600" />;
+        return <BarChart2 className="w-5 h-5 text-orange-600" />;
       default:
-        return <TrendingUp className="w-5 h-5 text-primary-600" />;
+        return <TrendingUp className="w-5 h-5 text-orange-600" />;
     }
   };
 
@@ -119,7 +117,7 @@ const MetricUpdateForm: React.FC<MetricUpdateFormProps> = ({ onClose, onSubmit }
         className="bg-white rounded-xl shadow-xl w-full max-w-md overflow-hidden"
       >
         {/* Header */}
-        <div className="bg-gradient-to-r from-primary-500 to-primary-600 p-4 text-white">
+        <div className="bg-gradient-to-r from-orange-500 to-orange-600 p-4 text-white">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <TrendingUp className="w-6 h-6" />
@@ -133,7 +131,7 @@ const MetricUpdateForm: React.FC<MetricUpdateFormProps> = ({ onClose, onSubmit }
             </button>
           </div>
         </div>
-        
+
         {/* Form */}
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           {/* Connection Status Warning */}
@@ -142,7 +140,7 @@ const MetricUpdateForm: React.FC<MetricUpdateFormProps> = ({ onClose, onSubmit }
               Warning: Real-time connection is not active. Updates may not be synchronized in real-time.
             </div>
           )}
-          
+
           {/* User Information */}
           <div className="grid grid-cols-2 gap-4">
             <div>
@@ -151,7 +149,7 @@ const MetricUpdateForm: React.FC<MetricUpdateFormProps> = ({ onClose, onSubmit }
                 type="text"
                 value={formData.userName}
                 onChange={(e) => setFormData({ ...formData, userName: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                 required
               />
             </div>
@@ -160,7 +158,7 @@ const MetricUpdateForm: React.FC<MetricUpdateFormProps> = ({ onClose, onSubmit }
               <select
                 value={formData.userRole}
                 onChange={(e) => setFormData({ ...formData, userRole: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                 required
               >
                 <option value="">Select Role</option>
@@ -171,7 +169,7 @@ const MetricUpdateForm: React.FC<MetricUpdateFormProps> = ({ onClose, onSubmit }
               </select>
             </div>
           </div>
-          
+
           {/* Metric Type */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Metric Type</label>
@@ -180,14 +178,14 @@ const MetricUpdateForm: React.FC<MetricUpdateFormProps> = ({ onClose, onSubmit }
                 <button
                   key={type}
                   type="button"
-                  onClick={() => setFormData({ 
-                    ...formData, 
+                  onClick={() => setFormData({
+                    ...formData,
                     metricType: type as any,
-                    metricName: '' // Reset metric name when type changes
+                    metricName: ''
                   })}
                   className={`p-3 rounded-lg border text-center ${
                     formData.metricType === type
-                      ? 'bg-primary-100 border-primary-300 text-primary-700'
+                      ? 'bg-orange-100 border-orange-300 text-orange-700'
                       : 'bg-white border-gray-300 text-gray-700 hover:bg-gray-50'
                   }`}
                 >
@@ -203,7 +201,7 @@ const MetricUpdateForm: React.FC<MetricUpdateFormProps> = ({ onClose, onSubmit }
               ))}
             </div>
           </div>
-          
+
           {/* Metric Name */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Metric</label>
@@ -214,7 +212,7 @@ const MetricUpdateForm: React.FC<MetricUpdateFormProps> = ({ onClose, onSubmit }
               <select
                 value={formData.metricName}
                 onChange={(e) => setFormData({ ...formData, metricName: e.target.value })}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                 required
               >
                 <option value="">Select Metric</option>
@@ -224,7 +222,7 @@ const MetricUpdateForm: React.FC<MetricUpdateFormProps> = ({ onClose, onSubmit }
               </select>
             </div>
           </div>
-          
+
           {/* Department (optional for some metrics) */}
           {(formData.metricType === 'attendance' || formData.metricType === 'marks') && (
             <div>
@@ -232,7 +230,7 @@ const MetricUpdateForm: React.FC<MetricUpdateFormProps> = ({ onClose, onSubmit }
               <select
                 value={formData.department}
                 onChange={(e) => setFormData({ ...formData, department: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                 required
               >
                 <option value="">Select Department</option>
@@ -242,7 +240,7 @@ const MetricUpdateForm: React.FC<MetricUpdateFormProps> = ({ onClose, onSubmit }
               </select>
             </div>
           )}
-          
+
           {/* Values */}
           <div className="grid grid-cols-2 gap-4">
             <div>
@@ -250,11 +248,11 @@ const MetricUpdateForm: React.FC<MetricUpdateFormProps> = ({ onClose, onSubmit }
               <input
                 type="number"
                 value={formData.previousValue === null ? '' : formData.previousValue}
-                onChange={(e) => setFormData({ 
-                  ...formData, 
-                  previousValue: e.target.value === '' ? null : Number(e.target.value) 
+                onChange={(e) => setFormData({
+                  ...formData,
+                  previousValue: e.target.value === '' ? null : Number(e.target.value)
                 })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                 step="0.01"
               />
             </div>
@@ -264,13 +262,13 @@ const MetricUpdateForm: React.FC<MetricUpdateFormProps> = ({ onClose, onSubmit }
                 type="number"
                 value={formData.newValue}
                 onChange={(e) => setFormData({ ...formData, newValue: Number(e.target.value) })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                 step="0.01"
                 required
               />
             </div>
           </div>
-          
+
           {/* Submit Button */}
           <div className="flex justify-end space-x-3 pt-4">
             <button
@@ -283,7 +281,7 @@ const MetricUpdateForm: React.FC<MetricUpdateFormProps> = ({ onClose, onSubmit }
             <button
               type="submit"
               disabled={isSubmitting || !isConnected}
-              className="flex items-center space-x-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+              className="flex items-center space-x-2 px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
             >
               <Save className="w-4 h-4" />
               <span>{isSubmitting ? 'Submitting...' : 'Submit Update'}</span>

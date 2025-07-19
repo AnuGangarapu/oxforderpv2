@@ -124,7 +124,7 @@ const FeeManagement: React.FC = () => {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'paid': return 'text-green-600 bg-green-100';
-      case 'partial': return 'text-yellow-600 bg-yellow-100';
+      case 'partial': return 'text-orange-600 bg-orange-100';
       case 'overdue': return 'text-red-600 bg-red-100';
       default: return 'text-gray-600 bg-gray-100';
     }
@@ -206,7 +206,7 @@ const FeeManagement: React.FC = () => {
               <div className="flex space-x-2 mt-2 md:mt-0">
                 <button
                   onClick={handleExportPDF}
-                  className="flex items-center space-x-2 px-4 py-2 border border-gray-300 text-gray-700 bg-white rounded-lg hover:bg-gray-50 transition-colors"
+                  className="flex items-center space-x-2 px-4 py-2 border border-orange-300 text-orange-700 bg-white rounded-lg hover:bg-orange-50 transition-colors"
                 >
                   <Download className="w-4 h-4" />
                   <span>Export PDF</span>
@@ -229,7 +229,7 @@ const FeeManagement: React.FC = () => {
             className="w-full max-w-4xl mx-auto space-y-8"
           >
             {/* WhatsApp Notification Info */}
-            <div className="bg-gradient-to-r from-green-50 to-blue-50 border border-green-200 rounded-xl p-4">
+            <div className="bg-gradient-to-r from-green-50 to-orange-50 border border-orange-200 rounded-xl p-4">
               <div className="flex items-center space-x-3">
                 <MessageCircle className="w-6 h-6 text-green-600" />
                 <div>
@@ -246,10 +246,10 @@ const FeeManagement: React.FC = () => {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm font-medium text-gray-600">Total Fee</p>
-                      <p className="text-3xl font-bold text-gray-900">${studentFeeData.totalFee.toLocaleString()}</p>
+                      <p className="text-3xl font-bold text-orange-600">${studentFeeData.totalFee.toLocaleString()}</p>
                     </div>
-                    <div className="bg-blue-100 p-3 rounded-xl">
-                      <DollarSign className="w-6 h-6 text-blue-600" />
+                    <div className="bg-orange-100 p-3 rounded-xl">
+                      <DollarSign className="w-6 h-6 text-orange-600" />
                     </div>
                   </div>
                 </div>
@@ -287,7 +287,7 @@ const FeeManagement: React.FC = () => {
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-3">
                     <div
-                      className="bg-green-500 h-3 rounded-full transition-all duration-300"
+                      className="bg-orange-500 h-3 rounded-full transition-all duration-300"
                       style={{ width: `${(studentFeeData.paidAmount / studentFeeData.totalFee) * 100}%` }}
                     ></div>
                   </div>
@@ -304,7 +304,7 @@ const FeeManagement: React.FC = () => {
                   <button
                     onClick={() => setShowPaymentModal(true)}
                     disabled={isNotifying}
-                    className="flex items-center space-x-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-50"
+                    className="flex items-center space-x-2 px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors disabled:opacity-50"
                   >
                     <CreditCard className="w-4 h-4" />
                     <span>{isNotifying ? 'Processing...' : 'Make Payment'}</span>
@@ -345,7 +345,7 @@ const FeeManagement: React.FC = () => {
                   <h3 className="text-lg font-semibold text-gray-900">Payment History</h3>
                   <button
                     onClick={handleExportPDF}
-                    className="flex items-center space-x-2 px-4 py-2 border border-gray-300 text-gray-700 bg-white rounded-lg hover:bg-gray-50 transition-colors"
+                    className="flex items-center space-x-2 px-4 py-2 border border-orange-300 text-orange-700 bg-white rounded-lg hover:bg-orange-50 transition-colors"
                   >
                     <Download className="w-4 h-4" />
                     <span>Download Receipt</span>
@@ -353,7 +353,7 @@ const FeeManagement: React.FC = () => {
                 </div>
                 <div className="space-y-3">
                   {studentFeeData.installments.filter(i => i.status === 'paid').map((payment) => (
-                    <div key={payment.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <div key={payment.id} className="flex items-center justify-between p-3 bg-orange-50 rounded-lg">
                       <div className="flex items-center space-x-3">
                         <MessageCircle className="w-4 h-4 text-green-600" />
                         <div>
@@ -383,13 +383,13 @@ const FeeManagement: React.FC = () => {
                       <input
                         type="number"
                         value={studentFeeData.pendingAmount}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                         readOnly
                       />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">Payment Method</label>
-                      <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                      <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
                         <option value="card">Credit/Debit Card</option>
                         <option value="bank">Bank Transfer</option>
                         <option value="upi">UPI</option>
@@ -400,7 +400,7 @@ const FeeManagement: React.FC = () => {
                       <input
                         type="text"
                         placeholder="1234 5678 9012 3456"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                       />
                     </div>
                     <div className="grid grid-cols-2 gap-4">
@@ -409,7 +409,7 @@ const FeeManagement: React.FC = () => {
                         <input
                           type="text"
                           placeholder="MM/YY"
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                         />
                       </div>
                       <div>
@@ -417,7 +417,7 @@ const FeeManagement: React.FC = () => {
                         <input
                           type="text"
                           placeholder="123"
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                         />
                       </div>
                     </div>
@@ -430,7 +430,7 @@ const FeeManagement: React.FC = () => {
                     <button
                       onClick={handlePayment}
                       disabled={isNotifying}
-                      className="flex-1 bg-primary-600 text-white py-2 px-4 rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-50"
+                      className="flex-1 bg-orange-600 text-white py-2 px-4 rounded-lg hover:bg-orange-700 transition-colors disabled:opacity-50"
                     >
                       {isNotifying ? 'Processing...' : `Pay $${studentFeeData.pendingAmount.toLocaleString()}`}
                     </button>
@@ -495,7 +495,7 @@ const FeeManagement: React.FC = () => {
             <div className="flex space-x-2 mt-2 md:mt-0">
               <button
                 onClick={handleExportPDF}
-                className="flex items-center space-x-2 px-4 py-2 border border-gray-300 text-gray-700 bg-white rounded-lg hover:bg-gray-50 transition-colors"
+                className="flex items-center space-x-2 px-4 py-2 border border-orange-300 text-orange-700 bg-white rounded-lg hover:bg-orange-50 transition-colors"
               >
                 <Download className="w-4 h-4" />
                 <span>Export PDF</span>
@@ -523,10 +523,10 @@ const FeeManagement: React.FC = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-gray-600">Total Collected</p>
-                  <p className="text-2xl font-bold text-green-600">${feeAnalytics.totalCollected.toLocaleString()}</p>
+                  <p className="text-2xl font-bold text-orange-600">${feeAnalytics.totalCollected.toLocaleString()}</p>
                 </div>
-                <div className="bg-green-100 p-3 rounded-xl">
-                  <DollarSign className="w-6 h-6 text-green-600" />
+                <div className="bg-orange-100 p-3 rounded-xl">
+                  <DollarSign className="w-6 h-6 text-orange-600" />
                 </div>
               </div>
               <span className="text-xs text-gray-400">This Month: ${feeAnalytics.thisMonth.toLocaleString()}</span>
@@ -535,10 +535,10 @@ const FeeManagement: React.FC = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-gray-600">Pending</p>
-                  <p className="text-2xl font-bold text-yellow-600">${feeAnalytics.pending.toLocaleString()}</p>
+                  <p className="text-2xl font-bold text-orange-500">${feeAnalytics.pending.toLocaleString()}</p>
                 </div>
-                <div className="bg-yellow-100 p-3 rounded-xl">
-                  <Clock className="w-6 h-6 text-yellow-600" />
+                <div className="bg-orange-100 p-3 rounded-xl">
+                  <Clock className="w-6 h-6 text-orange-500" />
                 </div>
               </div>
               <span className="text-xs text-gray-400">Upcoming Dues: ${feeAnalytics.upcomingDues.toLocaleString()}</span>
@@ -559,30 +559,29 @@ const FeeManagement: React.FC = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-gray-600">Paid %</p>
-                  <p className="text-2xl font-bold text-blue-600">{feeAnalytics.paidPercent}%</p>
+                  <p className="text-2xl font-bold text-green-600">{feeAnalytics.paidPercent}%</p>
                 </div>
-                <div className="bg-blue-100 p-3 rounded-xl">
-                  <CheckCircle className="w-6 h-6 text-blue-600" />
+                <div className="bg-green-100 p-3 rounded-xl">
+                  <CheckCircle className="w-6 h-6 text-green-600" />
                 </div>
               </div>
               <span className="text-xs text-gray-400">Pending %: {feeAnalytics.pendingPercent}%</span>
             </div>
           </div>
-
           {/* Charts */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="bg-white/60 rounded-xl shadow-sm border border-gray-200 p-6">
               <div className="flex items-center gap-2 mb-2">
-                <BarChart2 className="w-5 h-5 text-blue-500" />
+                <BarChart2 className="w-5 h-5 text-orange-500" />
                 <h3 className="text-lg font-semibold text-gray-900">Fee Collection Trend</h3>
               </div>
               <div className="h-48 flex items-end gap-2">
                 {feeAnalytics.collectionTrend.map((item, idx) => (
                   <div key={item.month} className="flex-1 flex flex-col items-center">
                     <div
-                      className="w-8 rounded-t bg-blue-500 transition-all"
+                      className="w-8 rounded-t bg-orange-500 transition-all"
                       style={{
-                        height: `${item.collected / 200}px`, // scale for demo
+                        height: `${item.collected / 200}px`,
                         minHeight: '10px'
                       }}
                     ></div>
@@ -597,7 +596,7 @@ const FeeManagement: React.FC = () => {
             </div>
             <div className="bg-white/70 rounded-xl shadow-sm border border-gray-200 p-6">
               <div className="flex items-center gap-2 mb-2">
-                <PieChart className="w-5 h-5 text-green-500" />
+                <PieChart className="w-5 h-5 text-orange-500" />
                 <h3 className="text-lg font-semibold text-gray-900">Paid vs Pending vs Overdue</h3>
               </div>
               <div className="flex items-center justify-center h-48">

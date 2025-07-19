@@ -145,7 +145,6 @@ const AttendanceManagement = () => {
     }
   };
 
-  // --- Professional Attendance Background Image ---
   return (
     <Layout>
       <div className="fixed inset-0 -z-20">
@@ -173,14 +172,14 @@ const AttendanceManagement = () => {
               <div className="flex space-x-2">
                 <button
                   onClick={handleExportPDF}
-                  className="flex items-center space-x-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                  className="flex items-center space-x-2 px-4 py-2 bg-orange-50 border border-orange-200 text-orange-600 rounded-lg hover:bg-orange-100 transition-colors"
                 >
                   <Download className="w-4 h-4" />
                   <span>Export PDF</span>
                 </button>
                 <button
                   onClick={handlePrint}
-                  className="flex items-center space-x-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                  className="flex items-center space-x-2 px-4 py-2 bg-orange-50 border border-orange-200 text-orange-600 rounded-lg hover:bg-orange-100 transition-colors"
                 >
                   <Printer className="w-4 h-4" />
                   <span>Print</span>
@@ -265,7 +264,7 @@ const AttendanceManagement = () => {
                     <XAxis dataKey="month" />
                     <YAxis />
                     <Tooltip />
-                    <Line type="monotone" dataKey="attendance" stroke="#3b82f6" strokeWidth={2} />
+                    <Line type="monotone" dataKey="attendance" stroke="#F97316" strokeWidth={2} />
                   </LineChart>
                 </ResponsiveContainer>
               </div>

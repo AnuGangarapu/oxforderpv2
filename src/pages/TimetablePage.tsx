@@ -12,18 +12,18 @@ const timeSlots = [
 ];
 
 const colors = {
-  lecture: 'bg-stone-50 border-stone-200',
-  lab: 'bg-stone-50 border-stone-200',
-  break: 'bg-stone-100 border-stone-300',
-  free: 'bg-stone-50 border-stone-200',
-  currentDay: 'bg-stone-400 text-stone-800',
-  inactiveDay: 'bg-stone-200 text-stone-700 hover:bg-stone-300',
-  timeHeader: 'bg-stone-300 text-stone-800',
-  cardBg: 'bg-stone-50/90',
-  cardBorder: 'border-stone-200',
-  textPrimary: 'text-stone-800',
-  textSecondary: 'text-stone-600',
-  accent: 'bg-stone-400'
+  lecture: 'bg-orange-50 border-orange-200',
+  lab: 'bg-orange-50 border-orange-200',
+  break: 'bg-orange-100 border-orange-300',
+  free: 'bg-orange-50 border-orange-200',
+  currentDay: 'bg-orange-100 text-orange-700 border-orange-300',
+  inactiveDay: 'bg-orange-200 text-orange-700 hover:bg-orange-300',
+  timeHeader: 'bg-orange-400 text-orange-800',
+  cardBg: 'bg-orange-50/90',
+  cardBorder: 'border-orange-300',
+  textPrimary: 'text-orange-900',
+  textSecondary: 'text-orange-600',
+  accent: 'bg-orange-200'
 };
 
 // Example: Faculty teaches Data Structures to CS-301 and Algorithms to CS-302

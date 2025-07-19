@@ -14,7 +14,7 @@ import {
   EyeOff,
 } from 'lucide-react';
 
-const SettingsPage: React.FC = () => {
+const SettingsPage = () => {
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState('profile');
   const [showPassword, setShowPassword] = useState(false);
@@ -54,15 +54,9 @@ const SettingsPage: React.FC = () => {
     },
   });
 
-  const tabs = [
-    { id: 'profile', label: 'Profile', icon: User },
-    { id: 'notifications', label: 'Notifications', icon: Bell },
-    { id: 'security', label: 'Security', icon: Shield },
-    { id: 'appearance', label: 'Appearance', icon: Palette },
-    { id: 'privacy', label: 'Privacy', icon: Lock },
-  ];
+  const isStudent = user?.role === 'student';
 
-  // --- RENDER FUNCTIONS (unchanged) ---
+  // RENDER FUNCTIONS
   const renderProfileSettings = () => (
     <div className="space-y-6">
       <div>
@@ -73,13 +67,19 @@ const SettingsPage: React.FC = () => {
             <input
               type="text"
               value={settings.profile.name}
+              disabled={isStudent}
               onChange={(e) =>
                 setSettings({
                   ...settings,
                   profile: { ...settings.profile, name: e.target.value },
                 })
               }
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className={
+                isStudent
+                  ? 'w-full px-4 py-2 border border-orange-500 bg-white text-gray-900 rounded-lg cursor-not-allowed placeholder-orange-300'
+                  : 'w-full px-4 py-2 border border-orange-500 bg-white rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-600'
+              }
+              placeholder="Full Name"
             />
           </div>
           <div>
@@ -87,13 +87,19 @@ const SettingsPage: React.FC = () => {
             <input
               type="email"
               value={settings.profile.email}
+              disabled={isStudent}
               onChange={(e) =>
                 setSettings({
                   ...settings,
                   profile: { ...settings.profile, email: e.target.value },
                 })
               }
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className={
+                isStudent
+                  ? 'w-full px-4 py-2 border border-orange-500 bg-white text-gray-900 rounded-lg cursor-not-allowed placeholder-orange-300'
+                  : 'w-full px-4 py-2 border border-orange-500 bg-white rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-600'
+              }
+              placeholder="Email"
             />
           </div>
           <div>
@@ -101,26 +107,37 @@ const SettingsPage: React.FC = () => {
             <input
               type="tel"
               value={settings.profile.phone}
+              disabled={isStudent}
               onChange={(e) =>
                 setSettings({
                   ...settings,
                   profile: { ...settings.profile, phone: e.target.value },
                 })
               }
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className={
+                isStudent
+                  ? 'w-full px-4 py-2 border border-orange-500 bg-white text-gray-900 rounded-lg cursor-not-allowed placeholder-orange-300'
+                  : 'w-full px-4 py-2 border border-orange-500 bg-white rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-600'
+              }
+              placeholder="Phone"
             />
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Language</label>
             <select
               value={settings.profile.language}
+              disabled={isStudent}
               onChange={(e) =>
                 setSettings({
                   ...settings,
                   profile: { ...settings.profile, language: e.target.value },
                 })
               }
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className={
+                isStudent
+                  ? 'w-full px-4 py-2 border border-orange-500 bg-white text-gray-900 rounded-lg cursor-not-allowed'
+                  : 'w-full px-4 py-2 border border-orange-500 bg-white rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-600'
+              }
             >
               <option value="en">English</option>
               <option value="hi">Hindi</option>
@@ -132,13 +149,18 @@ const SettingsPage: React.FC = () => {
             <label className="block text-sm font-medium text-gray-700 mb-2">Timezone</label>
             <select
               value={settings.profile.timezone}
+              disabled={isStudent}
               onChange={(e) =>
                 setSettings({
                   ...settings,
                   profile: { ...settings.profile, timezone: e.target.value },
                 })
               }
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className={
+                isStudent
+                  ? 'w-full px-4 py-2 border border-orange-500 bg-white text-gray-900 rounded-lg cursor-not-allowed'
+                  : 'w-full px-4 py-2 border border-orange-500 bg-white rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-600'
+              }
             >
               <option value="UTC+05:30">India Standard Time (UTC+05:30)</option>
               <option value="UTC+00:00">Greenwich Mean Time (UTC+00:00)</option>
@@ -146,9 +168,23 @@ const SettingsPage: React.FC = () => {
             </select>
           </div>
         </div>
+        {isStudent && (
+          <div className="text-orange-700 mt-6 text-sm bg-orange-50 rounded-lg p-4 border border-orange-200">
+            <strong>Note:</strong> You do not have access to edit your profile. Please contact your faculty or administration for changes.
+          </div>
+        )}
       </div>
     </div>
   );
+
+  // --- Others unchanged except profile inputs styling
+  const tabs = [
+    { id: 'profile', label: 'Profile', icon: User },
+    { id: 'notifications', label: 'Notifications', icon: Bell },
+    { id: 'security', label: 'Security', icon: Shield },
+    { id: 'appearance', label: 'Appearance', icon: Palette },
+    { id: 'privacy', label: 'Privacy', icon: Lock },
+  ];
 
   const renderNotificationSettings = () => (
     <div className="space-y-6">
@@ -180,7 +216,7 @@ const SettingsPage: React.FC = () => {
                       }
                       className="sr-only peer"
                     />
-                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-600"></div>
+                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-orange-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-600"></div>
                   </label>
                 </div>
               ))}
@@ -209,7 +245,7 @@ const SettingsPage: React.FC = () => {
                       }
                       className="sr-only peer"
                     />
-                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-600"></div>
+                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-orange-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-600"></div>
                   </label>
                 </div>
               ))}
@@ -240,7 +276,7 @@ const SettingsPage: React.FC = () => {
                         security: { ...settings.security, currentPassword: e.target.value },
                       })
                     }
-                    className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    className="w-full px-4 py-2 pr-10 border border-orange-500 bg-white rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-600"
                   />
                   <button
                     type="button"
@@ -266,7 +302,7 @@ const SettingsPage: React.FC = () => {
                       security: { ...settings.security, newPassword: e.target.value },
                     })
                   }
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-orange-500 bg-white rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-600"
                 />
               </div>
               <div>
@@ -280,7 +316,7 @@ const SettingsPage: React.FC = () => {
                       security: { ...settings.security, confirmPassword: e.target.value },
                     })
                   }
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-orange-500 bg-white rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-600"
                 />
               </div>
             </div>
@@ -317,7 +353,7 @@ const SettingsPage: React.FC = () => {
                       }
                       className="sr-only peer"
                     />
-                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-600"></div>
+                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-orange-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-600"></div>
                   </label>
                 </div>
               ))}
@@ -358,7 +394,7 @@ const SettingsPage: React.FC = () => {
                   <div
                     className={`p-4 rounded-lg border-2 transition-colors ${
                       settings.appearance.theme === theme.value
-                        ? 'border-primary-500 bg-primary-50'
+                        ? 'border-orange-500 bg-orange-50'
                         : 'border-gray-200 hover:border-gray-300'
                     }`}
                   >
@@ -379,7 +415,7 @@ const SettingsPage: React.FC = () => {
                   appearance: { ...settings.appearance, fontSize: e.target.value },
                 })
               }
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-orange-500 bg-white rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-600"
             >
               <option value="small">Small</option>
               <option value="medium">Medium</option>
@@ -412,7 +448,7 @@ const SettingsPage: React.FC = () => {
                   <div
                     className={`w-12 h-12 rounded-lg ${scheme.color} border-4 transition-all ${
                       settings.appearance.colorScheme === scheme.value
-                        ? 'border-gray-900 scale-110'
+                        ? 'border-orange-900 scale-110'
                         : 'border-gray-200'
                     }`}
                   ></div>
@@ -440,7 +476,7 @@ const SettingsPage: React.FC = () => {
                   privacy: { ...settings.privacy, profileVisibility: e.target.value },
                 })
               }
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-orange-500 bg-white rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-600"
             >
               <option value="public">Public</option>
               <option value="institution">Institution Only</option>
@@ -466,7 +502,7 @@ const SettingsPage: React.FC = () => {
                     }
                     className="sr-only peer"
                   />
-                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-600"></div>
+                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-orange-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-600"></div>
                 </label>
               </div>
             ))}
@@ -493,15 +529,12 @@ const SettingsPage: React.FC = () => {
     }
   };
 
-  // Handler for Save Changes (for faculty only)
   const handleSaveChanges = () => {
-    // Add your save logic here
     alert('Settings saved successfully!');
   };
 
   return (
     <Layout>
-      {/* Background Video */}
       <video
         autoPlay
         loop
@@ -514,7 +547,6 @@ const SettingsPage: React.FC = () => {
         Your browser does not support the video tag.
       </video>
       <div className="relative z-10 min-h-screen flex flex-col items-center px-2 md:px-0 py-6">
-        {/* Header Bar */}
         <div className="w-full max-w-5xl mx-auto mb-8">
           <div className="bg-white/90 rounded-xl shadow p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-2 md:gap-0">
             <div>
@@ -541,7 +573,7 @@ const SettingsPage: React.FC = () => {
                       onClick={() => setActiveTab(tab.id)}
                       className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-left transition-colors ${
                         activeTab === tab.id
-                          ? 'bg-primary-50 text-primary-700 border border-primary-200'
+                          ? 'bg-orange-50 text-orange-700 border border-orange-200'
                           : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                       }`}
                     >
@@ -562,7 +594,7 @@ const SettingsPage: React.FC = () => {
                 <div className="pt-8 flex justify-end">
                   <button
                     onClick={handleSaveChanges}
-                    className="px-6 py-2 bg-primary-600 text-white rounded-lg font-semibold shadow hover:bg-primary-700 transition"
+                    className="px-6 py-2 bg-orange-600 text-white rounded-lg font-semibold shadow hover:bg-orange-700 transition"
                   >
                     Save Changes
                   </button>

@@ -3,19 +3,19 @@ import { motion } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
 import Layout from '../components/Layout/Layout';
 import { pdfExportService } from '../utils/pdfExport';
-import {
-  FileText,
-  Download,
-  Eye,
-  Calendar,
-  CheckCircle,
-  Clock,
-  AlertCircle,
-  Plus,
-  Search,
-  Filter,
-  Printer
-} from 'lucide-react';
+
+// Import Material UI Icons
+import DescriptionIcon from '@mui/icons-material/Description';
+import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
+import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
+import CalendarTodayRoundedIcon from '@mui/icons-material/CalendarTodayRounded';
+import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
+import HourglassBottomRoundedIcon from '@mui/icons-material/HourglassBottomRounded';
+import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded';
+import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
+import FilterAltRoundedIcon from '@mui/icons-material/FilterAltRounded';
+import PrintRoundedIcon from '@mui/icons-material/PrintRounded';
 
 const DocumentsPage: React.FC = () => {
   const { user } = useAuth();
@@ -103,20 +103,6 @@ const DocumentsPage: React.FC = () => {
 
   const handleExportPDF = async (document: any) => {
     try {
-      // Create a simple document object for the PDF
-      const documentData = {
-        name: document.name,
-        type: document.type,
-        requestDate: document.requestDate,
-        approvedDate: document.approvedDate || 'N/A',
-        purpose: document.purpose,
-        status: document.status,
-        studentName: user?.name,
-        studentId: user?.rollNumber,
-        department: user?.department,
-        issuedBy: 'Oxford College Administration'
-      };
-
       await pdfExportService.exportElementAsPDF('document-content', {
         filename: document.name.toLowerCase().replace(/\s+/g, '-'),
         title: document.name,
@@ -135,7 +121,7 @@ const DocumentsPage: React.FC = () => {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'approved': return 'text-green-700 bg-green-100';
-      case 'pending': return 'text-yellow-800 bg-yellow-100';
+      case 'pending': return 'text-orange-800 bg-orange-100';
       case 'rejected': return 'text-red-700 bg-red-100';
       default: return 'text-gray-700 bg-gray-100';
     }
@@ -143,10 +129,10 @@ const DocumentsPage: React.FC = () => {
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'approved': return CheckCircle;
-      case 'pending': return Clock;
-      case 'rejected': return AlertCircle;
-      default: return Clock;
+      case 'approved': return CheckCircleRoundedIcon;
+      case 'pending': return HourglassBottomRoundedIcon;
+      case 'rejected': return ErrorOutlineRoundedIcon;
+      default: return HourglassBottomRoundedIcon;
     }
   };
 
@@ -183,7 +169,7 @@ const DocumentsPage: React.FC = () => {
       <div
         className="fixed inset-0 bg-cover bg-center bg-no-repeat -z-10"
         style={{
-          backgroundImage: 'url(https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)',
+          backgroundImage: 'url(https://cdn.pixabay.com/photo/2016/11/29/12/41/desk-1869579_1280.jpg)',
           filter: 'brightness(0.8)'
         }}
       />
@@ -197,23 +183,23 @@ const DocumentsPage: React.FC = () => {
       >
         {/* Header Section */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <div className="bg-white/60 rounded-xl shadow p-4 mb-2">
-             <h1 className="text-3xl font-bold text-gray-900">My Documents</h1>
-             <p className="text-gray-700">Manage your academic documents and requests</p>
+          <div className="bg-white/70 rounded-xl shadow p-4 mb-2">
+            <h1 className="text-3xl font-bold text-gray-900">My Documents</h1>
+            <p className="text-gray-700">Manage your academic documents and requests</p>
           </div>
           <div className="flex space-x-3">
             <button
               onClick={handlePrint}
-              className="flex items-center space-x-2 px-4 py-2 bg-white text-indigo-700 border border-indigo-200 rounded-lg hover:bg-indigo-50 transition-all"
+              className="flex items-center space-x-2 px-4 py-2 bg-white text-orange-700 border border-orange-200 rounded-lg hover:bg-orange-50 transition-all"
             >
-              <Printer className="w-5 h-5" />
+              <PrintRoundedIcon className="w-5 h-5" />
               <span>Print</span>
             </button>
             <button
               onClick={() => setShowRequestModal(true)}
-              className="flex items-center space-x-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors shadow-lg"
+              className="flex items-center space-x-2 px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors shadow-lg"
             >
-              <Plus className="w-5 h-5" />
+              <AddCircleRoundedIcon className="w-5 h-5" />
               <span>New Request</span>
             </button>
           </div>
@@ -222,10 +208,10 @@ const DocumentsPage: React.FC = () => {
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
           {[
-            { title: 'Total', value: mockDocuments.length, icon: FileText, color: 'bg-indigo-100 text-indigo-700' },
-            { title: 'Approved', value: mockDocuments.filter(d => d.status === 'approved').length, icon: CheckCircle, color: 'bg-green-100 text-green-700' },
-            { title: 'Pending', value: mockDocuments.filter(d => d.status === 'pending').length, icon: Clock, color: 'bg-yellow-100 text-yellow-800' },
-            { title: 'Rejected', value: mockDocuments.filter(d => d.status === 'rejected').length, icon: AlertCircle, color: 'bg-red-100 text-red-700' }
+            { title: 'Total', value: mockDocuments.length, icon: DescriptionIcon, color: 'bg-orange-100 text-orange-700' },
+            { title: 'Approved', value: mockDocuments.filter(d => d.status === 'approved').length, icon: CheckCircleRoundedIcon, color: 'bg-green-100 text-green-700' },
+            { title: 'Pending', value: mockDocuments.filter(d => d.status === 'pending').length, icon: HourglassBottomRoundedIcon, color: 'bg-orange-100 text-orange-800' },
+            { title: 'Rejected', value: mockDocuments.filter(d => d.status === 'rejected').length, icon: ErrorOutlineRoundedIcon, color: 'bg-red-100 text-red-700' }
           ].map((stat, index) => (
             <motion.div
               key={stat.title}
@@ -239,8 +225,8 @@ const DocumentsPage: React.FC = () => {
                   <p className="text-sm">{stat.title} Documents</p>
                   <p className="text-2xl font-bold mt-1">{stat.value}</p>
                 </div>
-                <div className={`p-3 rounded-full bg-white bg-opacity-80`}>
-                  <stat.icon className="w-6 h-6" />
+                <div className="p-3 rounded-full bg-white bg-opacity-80 flex items-center justify-center">
+                  <stat.icon fontSize="large" />
                 </div>
               </div>
             </motion.div>
@@ -251,21 +237,21 @@ const DocumentsPage: React.FC = () => {
         <div className="bg-white bg-opacity-90 p-5 rounded-xl border border-gray-200 shadow">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <SearchRoundedIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
                 type="text"
                 placeholder="Search documents..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 bg-white bg-opacity-80 text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder-gray-400"
+                className="w-full pl-10 pr-4 py-2.5 bg-white bg-opacity-80 text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent placeholder-gray-400"
               />
             </div>
             <div className="relative">
-              <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <FilterAltRoundedIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 bg-white bg-opacity-80 text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent appearance-none"
+                className="w-full pl-10 pr-4 py-2.5 bg-white bg-opacity-80 text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent appearance-none"
               >
                 <option value="all">All Categories</option>
                 <option value="certificate">Certificates</option>
@@ -283,8 +269,8 @@ const DocumentsPage: React.FC = () => {
 
         {/* Documents List */}
         <div className="bg-white bg-opacity-60 p-5 rounded-xl border border-gray-200 shadow">
-          <h3 className="text-xl font-semibold text-indigo-900 mb-5 flex items-center">
-            <FileText className="w-6 h-6 mr-2 text-indigo-400" />
+          <h3 className="text-xl font-semibold text-orange-900 mb-5 flex items-center">
+            <DescriptionIcon className="w-6 h-6 mr-2 text-orange-400" />
             Document Requests
           </h3>
 
@@ -297,11 +283,11 @@ const DocumentsPage: React.FC = () => {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.05 }}
-                  className="flex flex-col md:flex-row md:items-center md:justify-between p-4 bg-white bg-opacity-80 hover:bg-indigo-50 border border-gray-200 rounded-lg transition-all"
+                  className="flex flex-col md:flex-row md:items-center md:justify-between p-4 bg-white bg-opacity-80 hover:bg-orange-50 border border-gray-200 rounded-lg transition-all"
                 >
                   <div className="flex items-center space-x-4">
-                    <div className="p-3 bg-indigo-100 rounded-lg">
-                      <FileText className="w-6 h-6 text-indigo-400" />
+                    <div className="p-3 bg-orange-100 rounded-lg">
+                      <DescriptionIcon className="w-6 h-6 text-orange-400" />
                     </div>
                     <div>
                       <h4 className="font-medium text-gray-900">{document.name}</h4>
@@ -320,22 +306,22 @@ const DocumentsPage: React.FC = () => {
 
                   <div className="flex items-center space-x-4 mt-4 md:mt-0">
                     <div className={`flex items-center space-x-2 px-3 py-1.5 rounded-full text-sm ${getStatusColor(document.status)}`}>
-                      <StatusIcon className="w-4 h-4" />
+                      <StatusIcon fontSize="small" />
                       <span className="capitalize">{document.status}</span>
                     </div>
                     {document.status === 'approved' && (
                       <div className="flex space-x-2">
                         <button
                           onClick={() => handleView(document.id, document.name)}
-                          className="p-2 text-indigo-600 hover:text-indigo-900 hover:bg-indigo-100 rounded-lg transition-colors"
+                          className="p-2 text-orange-600 hover:text-orange-900 hover:bg-orange-100 rounded-lg transition-colors"
                         >
-                          <Eye className="w-5 h-5" />
+                          <RemoveRedEyeRoundedIcon />
                         </button>
                         <button
                           onClick={() => handleDownload(document)}
-                          className="p-2 text-indigo-600 hover:text-indigo-900 hover:bg-indigo-100 rounded-lg transition-colors"
+                          className="p-2 text-orange-600 hover:text-orange-900 hover:bg-orange-100 rounded-lg transition-colors"
                         >
-                          <Download className="w-5 h-5" />
+                          <DownloadRoundedIcon />
                         </button>
                       </div>
                     )}
@@ -354,8 +340,8 @@ const DocumentsPage: React.FC = () => {
               animate={{ opacity: 1, scale: 1 }}
               className="bg-white border border-gray-200 rounded-xl shadow-2xl p-6 w-full max-w-md"
             >
-              <h2 className="text-xl font-bold text-indigo-700 mb-4 flex items-center">
-                <Plus className="w-5 h-5 mr-2 text-indigo-400" />
+              <h2 className="text-xl font-bold text-orange-700 mb-4 flex items-center">
+                <AddCircleRoundedIcon className="w-5 h-5 mr-2 text-orange-400" />
                 Request New Document
               </h2>
 
@@ -365,7 +351,7 @@ const DocumentsPage: React.FC = () => {
                   <select
                     value={newRequest.type}
                     onChange={(e) => setNewRequest({ ...newRequest, type: e.target.value })}
-                    className="w-full px-3 py-2.5 bg-white text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    className="w-full px-3 py-2.5 bg-white text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                   >
                     <option value="">Select Document Type</option>
                     {documentTypes.map(type => (
@@ -380,7 +366,7 @@ const DocumentsPage: React.FC = () => {
                     value={newRequest.purpose}
                     onChange={(e) => setNewRequest({ ...newRequest, purpose: e.target.value })}
                     rows={3}
-                    className="w-full px-3 py-2.5 bg-white text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    className="w-full px-3 py-2.5 bg-white text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                     placeholder="Explain why you need this document..."
                   />
                 </div>
@@ -390,7 +376,7 @@ const DocumentsPage: React.FC = () => {
                   <select
                     value={newRequest.urgency}
                     onChange={(e) => setNewRequest({ ...newRequest, urgency: e.target.value })}
-                    className="w-full px-3 py-2.5 bg-white text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    className="w-full px-3 py-2.5 bg-white text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                   >
                     <option value="normal">Normal (5-7 days)</option>
                     <option value="urgent">Urgent (2-3 days) (+$10)</option>
@@ -409,7 +395,7 @@ const DocumentsPage: React.FC = () => {
                 <button
                   onClick={handleRequestDocument}
                   disabled={!newRequest.type || !newRequest.purpose}
-                  className="flex-1 bg-indigo-600 text-white py-2.5 px-4 rounded-lg hover:bg-indigo-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+                  className="flex-1 bg-orange-600 text-white py-2.5 px-4 rounded-lg hover:bg-orange-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
                 >
                   Submit Request
                 </button>
@@ -419,12 +405,12 @@ const DocumentsPage: React.FC = () => {
         )}
 
         {/* Help Section */}
-        <div className="bg-indigo-50 p-5 rounded-xl border border-indigo-200 shadow">
-          <h3 className="text-lg font-semibold text-indigo-700 mb-3 flex items-center">
-            <AlertCircle className="w-5 h-5 mr-2 text-indigo-400" />
+        <div className="bg-orange-50 p-5 rounded-xl border border-orange-200 shadow">
+          <h3 className="text-lg font-semibold text-orange-700 mb-3 flex items-center">
+            <ErrorOutlineRoundedIcon className="w-5 h-5 mr-2 text-orange-400" />
             Request Guidelines
           </h3>
-          <ul className="text-indigo-800 text-sm space-y-2">
+          <ul className="text-orange-800 text-sm space-y-2">
             <li className="flex items-start">
               <span className="mr-2">•</span>
               <span>Normal processing takes 5-7 working days</span>
