@@ -1062,7 +1062,7 @@ function App(): JSX.Element {
             <iframe
               title="Campus Location"
               width="100%"
-              height="360"
+              height="810"
               style={{ border: 0 }}
               loading="lazy"
               allowFullScreen

@@ -240,7 +240,7 @@ const NotificationsPage: React.FC = () => {
           backgroundRepeat: 'no-repeat',
         }}
       >
-        <div className="absolute inset-0 bg-white/50 backdrop-blur-[2px]" />
+        <div className="absolute inset-0 bg-white/50 backdrop-blur-[3px]" />
       </div>
 
       {/* Main content */}

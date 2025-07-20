@@ -46,11 +46,11 @@ const AnalyticsPage: React.FC = () => {
   ];
 
   const departmentData = [
-    { name: 'Computer Science', students: 850, faculty: 45, color: '#3b82f6' },
-    { name: 'Business Admin', students: 620, faculty: 35, color: '#10b981' },
-    { name: 'Mechanical Eng', students: 580, faculty: 32, color: '#f59e0b' },
-    { name: 'Electronics', students: 520, faculty: 28, color: '#ef4444' },
-    { name: 'Civil Eng', students: 277, faculty: 16, color: '#8b5cf6' },
+    { name: 'Computer Science', students: 850, faculty: 45, color: '#fb923c' }, // orange-400
+    { name: 'Business Admin', students: 620, faculty: 35, color: '#facc15' },   // yellow-400
+    { name: 'Mechanical Eng', students: 580, faculty: 32, color: '#f87171' },   // red-400
+    { name: 'Electronics', students: 520, faculty: 28, color: '#34d399' },      // green-400
+    { name: 'Civil Eng', students: 277, faculty: 16, color: '#a78bfa' },        // purple-400
   ];
 
   const performanceData = [
@@ -103,7 +103,7 @@ const AnalyticsPage: React.FC = () => {
         filename: 'analytics-report',
         title: 'Analytics Report',
         subtitle: `Period: ${selectedPeriod === 'semester' ? 'Current Semester' : 
-                           selectedPeriod === 'year' ? 'Current Year' : 'All Time'}`
+                   selectedPeriod === 'year' ? 'Current Year' : 'All Time'}`
       });
     } catch (error) {
       console.error('Error exporting PDF:', error);
@@ -144,25 +144,24 @@ const AnalyticsPage: React.FC = () => {
       >
         <div className="absolute inset-0 bg-white/20 backdrop-blur-[1px]" />
       </div>
-
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         className="space-y-8 relative z-10"
       >
-        {/* Header (no white bar, just text) */}
+        {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 tracking-tight mb-1">Analytics Dashboard</h1>
-            <div className="h-1 w-16 bg-blue-500 rounded mb-2" />
+            <div className="h-1 w-16 bg-orange-500 rounded mb-2" />
             <p className="text-gray-600">Comprehensive insights and performance metrics</p>
           </div>
           <div className="flex flex-wrap gap-2">
             <select
               value={selectedPeriod}
               onChange={(e) => setSelectedPeriod(e.target.value)}
-              className="px-4 py-2 border border-gray-200 bg-white/80 rounded-lg focus:ring-2 focus:ring-blue-200 focus:border-transparent"
+              className="px-4 py-2 border border-orange-300 bg-white/80 rounded-lg focus:ring-2 focus:ring-orange-200 focus:border-orange-500"
             >
               <option value="semester">This Semester</option>
               <option value="year">This Year</option>
@@ -170,14 +169,14 @@ const AnalyticsPage: React.FC = () => {
             </select>
             <button 
               onClick={handleExportPDF}
-              className="flex items-center space-x-2 px-4 py-2 border border-gray-200 bg-white/80 text-gray-700 rounded-lg hover:bg-blue-50 transition-colors"
+              className="flex items-center space-x-2 px-4 py-2 border border-orange-300 bg-white/80 text-orange-700 rounded-lg hover:bg-orange-50 transition-colors"
             >
               <Download className="w-4 h-4" />
               <span>Export PDF</span>
             </button>
             <button 
               onClick={handlePrint}
-              className="flex items-center space-x-2 px-4 py-2 border border-gray-200 bg-white/80 text-gray-700 rounded-lg hover:bg-blue-50 transition-colors"
+              className="flex items-center space-x-2 px-4 py-2 border border-orange-300 bg-white/80 text-orange-700 rounded-lg hover:bg-orange-50 transition-colors"
             >
               <Printer className="w-4 h-4" />
               <span>Print</span>
@@ -193,10 +192,10 @@ const AnalyticsPage: React.FC = () => {
                 <div>
                   <p className="text-xs font-medium text-gray-500">Total Students</p>
                   <p className="text-3xl font-bold text-gray-900">2,847</p>
-                  <p className="text-xs text-green-600 mt-1">↗ 3.5% from last year</p>
+                  <p className="text-xs text-orange-600 mt-1">↗ 3.5% from last year</p>
                 </div>
-                <div className="bg-blue-100 p-3 rounded-xl">
-                  <GraduationCap className="w-6 h-6 text-blue-600" />
+                <div className="bg-orange-100 p-3 rounded-xl">
+                  <GraduationCap className="w-6 h-6 text-orange-600" />
                 </div>
               </div>
             </div>
@@ -206,10 +205,10 @@ const AnalyticsPage: React.FC = () => {
                 <div>
                   <p className="text-xs font-medium text-gray-500">Faculty Members</p>
                   <p className="text-3xl font-bold text-gray-900">156</p>
-                  <p className="text-xs text-green-600 mt-1">↗ 0.6% from last year</p>
+                  <p className="text-xs text-orange-600 mt-1">↗ 0.6% from last year</p>
                 </div>
-                <div className="bg-green-100 p-3 rounded-xl">
-                  <Users className="w-6 h-6 text-green-600" />
+                <div className="bg-orange-100 p-3 rounded-xl">
+                  <Users className="w-6 h-6 text-orange-600" />
                 </div>
               </div>
             </div>
@@ -219,10 +218,10 @@ const AnalyticsPage: React.FC = () => {
                 <div>
                   <p className="text-xs font-medium text-gray-500">Avg Attendance</p>
                   <p className="text-3xl font-bold text-gray-900">88.5%</p>
-                  <p className="text-xs text-green-600 mt-1">↗ 2.1% from last month</p>
+                  <p className="text-xs text-orange-600 mt-1">↗ 2.1% from last month</p>
                 </div>
-                <div className="bg-yellow-100 p-3 rounded-xl">
-                  <Calendar className="w-6 h-6 text-yellow-600" />
+                <div className="bg-orange-100 p-3 rounded-xl">
+                  <Calendar className="w-6 h-6 text-orange-600" />
                 </div>
               </div>
             </div>
@@ -232,10 +231,10 @@ const AnalyticsPage: React.FC = () => {
                 <div>
                   <p className="text-xs font-medium text-gray-500">Placement Rate</p>
                   <p className="text-3xl font-bold text-gray-900">87%</p>
-                  <p className="text-xs text-green-600 mt-1">↗ 3% from last year</p>
+                  <p className="text-xs text-orange-600 mt-1">↗ 3% from last year</p>
                 </div>
-                <div className="bg-purple-100 p-3 rounded-xl">
-                  <Award className="w-6 h-6 text-purple-600" />
+                <div className="bg-orange-100 p-3 rounded-xl">
+                  <Award className="w-6 h-6 text-orange-600" />
                 </div>
               </div>
             </div>
@@ -253,8 +252,8 @@ const AnalyticsPage: React.FC = () => {
                     <XAxis dataKey="year" />
                     <YAxis />
                     <Tooltip />
-                    <Area type="monotone" dataKey="students" stackId="1" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.5} />
-                    <Area type="monotone" dataKey="faculty" stackId="2" stroke="#10b981" fill="#10b981" fillOpacity={0.5} />
+                    <Area type="monotone" dataKey="students" stackId="1" stroke="#fb923c" fill="#fb923c" fillOpacity={0.5} />
+                    <Area type="monotone" dataKey="faculty" stackId="2" stroke="#fbbf24" fill="#fbbf24" fillOpacity={0.5} />
                   </AreaChart>
                 </ResponsiveContainer>
               </div>
@@ -297,8 +296,8 @@ const AnalyticsPage: React.FC = () => {
                     <YAxis yAxisId="left" />
                     <YAxis yAxisId="right" orientation="right" />
                     <Tooltip />
-                    <Line yAxisId="left" type="monotone" dataKey="avgGPA" stroke="#3b82f6" strokeWidth={2} />
-                    <Line yAxisId="right" type="monotone" dataKey="passRate" stroke="#10b981" strokeWidth={2} />
+                    <Line yAxisId="left" type="monotone" dataKey="avgGPA" stroke="#fb923c" strokeWidth={2} />
+                    <Line yAxisId="right" type="monotone" dataKey="passRate" stroke="#fbbf24" strokeWidth={2} />
                   </LineChart>
                 </ResponsiveContainer>
               </div>
@@ -314,7 +313,7 @@ const AnalyticsPage: React.FC = () => {
                     <XAxis dataKey="month" />
                     <YAxis />
                     <Tooltip />
-                    <Bar dataKey="attendance" fill="#f59e0b" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="attendance" fill="#fb923c" radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -333,8 +332,8 @@ const AnalyticsPage: React.FC = () => {
                     <XAxis dataKey="year" />
                     <YAxis />
                     <Tooltip />
-                    <Bar dataKey="placed" fill="#10b981" name="Placed" />
-                    <Bar dataKey="total" fill="#e5e7eb" name="Total" />
+                    <Bar dataKey="placed" fill="#fbbf24" name="Placed" />
+                    <Bar dataKey="total" fill="#fde68a" name="Total" />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -350,8 +349,8 @@ const AnalyticsPage: React.FC = () => {
                     <XAxis dataKey="month" />
                     <YAxis />
                     <Tooltip />
-                    <Bar dataKey="collected" fill="#3b82f6" name="Collected" />
-                    <Bar dataKey="target" fill="#e5e7eb" name="Target" />
+                    <Bar dataKey="collected" fill="#fb923c" name="Collected" />
+                    <Bar dataKey="target" fill="#fde68a" name="Target" />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -376,7 +375,7 @@ const AnalyticsPage: React.FC = () => {
                 </thead>
                 <tbody>
                   {departmentData.map((dept, index) => (
-                    <tr key={index} className="border-b border-gray-100 hover:bg-gray-50">
+                    <tr key={index} className="border-b border-gray-100 hover:bg-orange-50">
                       <td className="py-3 px-4 font-medium text-gray-900">{dept.name}</td>
                       <td className="py-3 px-4 text-center text-gray-700">{dept.students}</td>
                       <td className="py-3 px-4 text-center text-gray-700">{dept.faculty}</td>
@@ -400,8 +399,8 @@ const AnalyticsPage: React.FC = () => {
           </div>
 
           {/* Insights and Recommendations */}
-          <div className="bg-gradient-to-r from-blue-50 to-green-50 rounded-2xl p-6">
-            <h3 className="text-lg font-semibold text-blue-900 mb-4 flex items-center space-x-2">
+          <div className="bg-gradient-to-r from-orange-50 to-yellow-50 rounded-2xl p-6">
+            <h3 className="text-lg font-semibold text-orange-900 mb-4 flex items-center space-x-2">
               <TrendingUp className="w-5 h-5" />
               <span>Key Insights & Recommendations</span>
             </h3>
