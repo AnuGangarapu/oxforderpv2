@@ -244,6 +244,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { GraduationCap, Mail, Lock, User } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -265,21 +266,21 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
  const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
 
-  const gmailRegex = /^[\w.+-]+@gmail\.com$/;
+  // const gmailRegex = /^[\w.+-]+@gmail\.com$/;
 
-  if (!formData.email.trim() || !formData.identifier.trim() || !formData.password.trim()) {
+  if (!formData.identifier.trim() || !formData.password.trim()) {
     setError('Please fill in all required fields.');
     return;
   }
 
-  if (!gmailRegex.test(formData.email.trim())) {
-    setError('Only @gmail.com email addresses are allowed.');
-    return;
-  }
+  // if (!gmailRegex.test(formData.email.trim())) {
+  //   setError('Only @gmail.com email addresses are allowed.');
+  //   return;
+  // }
 
   setIsLoading(true);
   setError('');
-
+   debugger
   const success = login(formData.identifier, formData.password, formData.role);
 
   if (!success) {
@@ -346,7 +347,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 {/* Role */}
-                <div>
+                {/* <div>
                   <label className="flex items-center space-x-2 text-sm font-medium text-gray-700 mb-1">
                     <User className="w-4 h-4" />
                     <span>Role</span>
@@ -362,10 +363,10 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
                     <option value="principal">Principal</option>
                     <option value="director">Director</option>
                   </select>
-                </div>
+                </div> */}
 
                 {/* Email */}
-                <div>
+                {/* <div>
                   <label className="flex items-center space-x-2 text-sm font-medium text-gray-700 mb-1">
                     <Mail className="w-4 h-4" />
                     <span>Email</span>
@@ -377,19 +378,21 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                     placeholder="Enter your email"
                   />
-                </div>
+                </div> */}
 
                 {/* Identifier */}
                 <div>
                   <label className="flex items-center space-x-2 text-sm font-medium text-gray-700 mb-1">
                     <Mail className="w-4 h-4" />
-                    <span>{formData.role === 'student' ? 'Roll Number' : 'Job ID'}</span>
+                    <span>User ID</span>
+                    {/* <span>{formData.role === 'student' ? 'Roll Number' : 'Job ID'}</span> */}
                   </label>
                   <input
                     value={formData.identifier}
                     onChange={(e) => setFormData({ ...formData, identifier: e.target.value })}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                    placeholder={formData.role === 'student' ? 'Enter your roll number' : 'Enter your job ID'}
+                     placeholder={'Enter your User ID'}
+                    // placeholder={formData.role === 'student' ? 'Enter your roll number' : 'Enter your job ID'}
                   />
                 </div>
 
@@ -408,10 +411,14 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
       className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
       placeholder="Enter your password"
     />
-    
+    <div
+        className="absolute inset-y-0 right-3 flex items-center cursor-pointer text-gray-500"
+        onClick={() => setShowPassword(!showPassword)}
+      >
+        {showPassword ? <FaEye /> :  <FaEyeSlash />}
+    </div>
+    </div>
   </div>
-</div>
-
 
                 {/* Error */}
                 {error && (
@@ -431,7 +438,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
               </form>
 
               {/* Footer */}
-              <footer className="mt-6 text-center text-sm text-gray-600">
+              {/* <footer className="mt-6 text-center text-sm text-gray-600">
                 <p>Powered by <strong>Lifebox NextGen Pvt Ltd</strong></p>
                 <div className="mt-1 space-x-4">
                   <a href="#" className="hover:text-primary-600 transition-colors">Privacy Policy</a>
@@ -440,7 +447,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
                   <span>|</span>
                   <a href="#" className="hover:text-primary-600 transition-colors">Contact</a>
                 </div>
-              </footer>
+              </footer> */}
             </div>
           </motion.div>
         </motion.div>
